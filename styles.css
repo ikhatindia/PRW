@@ -4,10 +4,7 @@
     --section-bg: #EEEEEE;
     --black: #000000;
     --highlight: #FF2F2F;
-    --circle-dark: #CFCDCD;
-    --circle-medium: #E1DEDE;
-    --circle-light: #D8D8D8;
-    --circle-lightest: #FCFAFA;
+    --circle-color: #CFCDCD;
     --transition: all 0.3s ease;
     
     /* Golden ratio dimensions */
@@ -41,64 +38,34 @@ html, body {
     transform-origin: top left;
 }
 
-/* Browser header styling */
-.browser-header {
-    width: 100%;
-    height: 79px;
-    background-color: #f5f5f5;
-    position: relative;
-}
-
-.tab-bar {
-    height: 30px;
-    background-color: #e0e0e0;
-}
-
-.url-bar {
-    height: 49px;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-}
-
-.url-bar input {
-    width: 100%;
-    height: 30px;
-    border-radius: 15px;
-    border: 1px solid #d1d1d1;
-    padding: 0 10px;
-    font-size: 14px;
-    color: #333;
-    background-color: white;
-}
-
 /* Main content area */
 .content-area {
     width: var(--content-width);
     height: var(--content-height);
-    margin: 44px auto 0;
+    margin: 70px auto 0;
     position: relative;
 }
 
 /* Logo and profile section */
 .logo-section {
     position: absolute;
-    top: 40px;
+    top: 30px;
     left: 0;
     display: flex;
     gap: 10px;
 }
 
-.profile-image {
-    width: 74px;
-    height: 93px;
+.profile-image, .logo-image {
+    width: 85px;
+    height: 85px;
     background-color: #ccc; /* Placeholder color */
+    cursor: pointer;
+    transition: var(--transition);
 }
 
-.logo-image {
-    width: 91px;
-    height: 93px;
-    background-color: #ccc; /* Placeholder color */
+.profile-image:hover, .logo-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 /* Name styling */
@@ -117,7 +84,7 @@ html, body {
     top: 108px;
     right: 0;
     display: flex;
-    gap: 20px;
+    gap: 30px;
 }
 
 .nav-link {
@@ -148,6 +115,7 @@ html, body {
     background-color: var(--section-bg);
     position: absolute;
     transition: var(--transition);
+    cursor: pointer;
 }
 
 .section-box:hover {
@@ -162,18 +130,46 @@ html, body {
     color: var(--black);
 }
 
-/* Intro box specific styling */
+/* Intro box specific styling (speech bubble) */
 .intro-box {
-    top: 146px;
-    left: 0;
+    top: 220px;
+    left: 85px;
     width: 196px;
-    height: 225px;
-    border: 3px solid var(--black);
+    height: 175px;
+    border: 2px solid var(--black);
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
     text-align: center;
+    border-radius: 15px;
+    position: relative;
+}
+
+.intro-box:after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 20px;
+    border-width: 15px 15px 0;
+    border-style: solid;
+    border-color: var(--section-bg) transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+}
+
+.intro-box:before {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    left: 19px;
+    border-width: 16px 16px 0;
+    border-style: solid;
+    border-color: var(--black) transparent;
+    display: block;
+    width: 0;
+    z-index: 0;
 }
 
 .intro-text {
@@ -187,8 +183,8 @@ html, body {
 
 /* Academic box specific styling */
 .academic-box {
-    top: 166px;
-    left: 226px;
+    top: 220px;
+    left: 300px;
     width: 344px;
     height: 206px;
 }
@@ -199,23 +195,12 @@ html, body {
     right: 15px;
 }
 
-.academic-box .circle-container {
-    position: absolute;
-    bottom: 25px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 11px;
-}
-
 /* Professional box specific styling */
 .professional-box {
-    top: 408px;
-    left: 0;
+    top: 450px;
+    left: 85px;
     width: 570px;
-    height: 552px;
+    height: 330px;
 }
 
 .professional-box .section-title {
@@ -224,21 +209,12 @@ html, body {
     left: 15px;
 }
 
-.professional-box .circle-container {
-    position: absolute;
-    bottom: 40px;
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
 /* Projects box specific styling */
 .projects-box {
-    top: 166px;
+    top: 220px;
     right: 0;
-    width: 919px;
-    height: 794px;
+    width: 805px;
+    height: 560px;
 }
 
 .projects-box .section-title {
@@ -247,20 +223,65 @@ html, body {
     right: 15px;
 }
 
-.projects-box .circle-container {
-    position: absolute;
-    bottom: 40px;
+/* Carousel container */
+.carousel-container {
     width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    height: 100%;
+    position: relative;
+    padding-top: 70px; /* Space for title */
+    padding-bottom: 70px; /* Space for circles */
 }
 
-/* Circle styling */
+.carousel-slides {
+    width: 100%;
+    height: calc(100% - 70px);
+    position: relative;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    font-size: 18px;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+/* Circle indicator styling */
+.circle-container {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 .circle {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    background-color: var(--circle-color);
+    border: none;
     cursor: pointer;
-    transition: var(--transition);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.circle.active {
+    transform: scale(1.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
 .circle:hover {
@@ -268,60 +289,20 @@ html, body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
-/* Circle sizes and colors based on Figma design */
-.smallest {
-    width: 41px;
-    height: 41px;
-    background-color: var(--circle-lightest);
+/* Ensure all circles in each container are the same size initially */
+.academic-box .circle-container .circle {
+    width: 40px;
+    height: 40px;
 }
 
-.small {
-    width: 81px;
-    height: 81px;
-    background-color: var(--circle-medium);
+.professional-box .circle-container .circle {
+    width: 40px;
+    height: 40px;
 }
 
-.medium {
-    width: 122px;
-    height: 122px;
-    background-color: var(--circle-dark);
-}
-
-.large {
-    width: 184px;
-    height: 184px;
-    background-color: var(--circle-dark);
-}
-
-/* Academic specific circles */
-.academic-box .small {
-    width: 43px;
-    height: 43px;
-    background-color: var(--circle-light);
-}
-
-.academic-box .medium {
-    width: 80px;
-    height: 80px;
-    background-color: var(--circle-light);
-}
-
-/* Scroll indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    width: 31px;
-    height: 14px;
-    border-radius: 8px;
-    outline: 10px solid white;
-    outline-offset: -5px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.scroll-indicator:hover {
-    transform: scale(1.2);
+.projects-box .circle-container .circle {
+    width: 40px;
+    height: 40px;
 }
 
 /* Responsive scaling */
