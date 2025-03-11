@@ -10,58 +10,46 @@
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="browser-header">
-        <div class="tab-bar">
-            <div class="tab">
-                <span>New Tab</span>
-                <button class="close-tab">×</button>
-            </div>
-            <button class="new-tab">+</button>
-        </div>
-        <div class="address-bar">
-            <div class="navigation">
-                <button class="nav-button back">◀</button>
-                <button class="nav-button forward">▶</button>
-                <button class="nav-button reload">↻</button>
-            </div>
+    <div id="viewport">
+        <!-- Browser header - simulated -->
+        <div class="browser-header">
+            <div class="tab-bar"></div>
             <div class="url-bar">
-                <span>prashantoroy.com</span>
-            </div>
-            <div class="browser-actions">
-                <button class="action-button">⋮</button>
+                <input type="text" value="prashantoroy.com" readonly>
             </div>
         </div>
-    </div>
-
-    <div class="content-wrapper">
-        <div class="content">
-            <!-- Logo and Profile Image -->
-            <div class="logo-container">
+        
+        <!-- Main content area -->
+        <div class="content-area">
+            <!-- Logo and profile section -->
+            <div class="logo-section">
                 <div class="profile-image"></div>
                 <div class="logo-image"></div>
             </div>
             
-            <!-- Name Header -->
+            <!-- Name header -->
             <div class="name">PRASHANTO ROY</div>
             
-            <!-- Navigation Links -->
+            <!-- Navigation links -->
             <div class="navigation-links">
-                <a href="#" class="nav-link about">About</a>
-                <a href="#" class="nav-link works">Works</a>
-                <a href="#" class="nav-link connect">Connect</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#works" class="nav-link">Works</a>
+                <a href="#connect" class="nav-link">Connect</a>
             </div>
             
             <!-- Introduction Box -->
-            <div class="intro-box">
+            <div class="intro-box section-box" id="intro">
                 <div class="intro-text">
-                    Kindly allow me <span class="highlight">introduce</span> myself.
+                    <span>Kindly allow me </span>
+                    <span class="highlight">introduce</span>
+                    <span> myself.</span>
                 </div>
             </div>
             
             <!-- Academic Box -->
-            <div class="academic-box">
-                <div class="section-title academic-title">Academic</div>
-                <div class="circle-container academic-circles">
+            <div class="academic-box section-box" id="academic">
+                <div class="section-title">Academic</div>
+                <div class="circle-container">
                     <div class="circle small"></div>
                     <div class="circle medium"></div>
                     <div class="circle small"></div>
@@ -69,9 +57,9 @@
             </div>
             
             <!-- Professional Box -->
-            <div class="professional-box">
-                <div class="section-title professional-title">Professional</div>
-                <div class="circle-container professional-circles">
+            <div class="professional-box section-box" id="professional">
+                <div class="section-title">Professional</div>
+                <div class="circle-container">
                     <div class="circle smallest"></div>
                     <div class="circle small"></div>
                     <div class="circle medium"></div>
@@ -81,9 +69,9 @@
             </div>
             
             <!-- Projects Box -->
-            <div class="projects-box">
-                <div class="section-title projects-title">Projects</div>
-                <div class="circle-container projects-circles">
+            <div class="projects-box section-box" id="projects">
+                <div class="section-title">Projects</div>
+                <div class="circle-container">
                     <div class="circle smallest"></div>
                     <div class="circle small"></div>
                     <div class="circle large"></div>
@@ -92,7 +80,7 @@
                 </div>
             </div>
             
-            <!-- Scroll Indicator -->
+            <!-- Scroll indicator -->
             <div class="scroll-indicator"></div>
         </div>
     </div>
