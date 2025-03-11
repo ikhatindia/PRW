@@ -1,132 +1,87 @@
-/* Reset and base styles */
+/* CSS Variables for consistent styling */
+:root {
+    --primary-bg: #FFFFFF;
+    --section-bg: #EEEEEE;
+    --black: #000000;
+    --highlight: #FF2F2F;
+    --circle-dark: #CFCDCD;
+    --circle-medium: #E1DEDE;
+    --circle-light: #D8D8D8;
+    --circle-lightest: #FCFAFA;
+    --transition: all 0.3s ease;
+    
+    /* Golden ratio dimensions */
+    --content-width: 1528px;
+    --content-height: 944px;
+}
+
+/* Base reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    width: 100%;
+    height: 100%;
     font-family: 'EB Garamond', serif;
+    font-size: 16px;
     overflow: hidden;
+    background-color: var(--primary-bg);
+}
+
+/* Viewport container with exact dimensions */
+#viewport {
     width: 1728px;
     height: 1117px;
     position: relative;
-    background-color: white;
+    margin: 0 auto;
+    overflow: hidden;
+    transform-origin: top left;
 }
 
 /* Browser header styling */
 .browser-header {
     width: 100%;
     height: 79px;
-    background-color: #f0f0f0;
-    border-bottom: 1px solid #d1d1d1;
+    background-color: #f5f5f5;
+    position: relative;
 }
 
 .tab-bar {
-    display: flex;
-    align-items: center;
     height: 30px;
-    padding: 0 10px;
-    background-color: #e1e1e1;
-}
-
-.tab {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 0 10px;
-    height: 25px;
-    background-color: #fff;
-    border-radius: 5px 5px 0 0;
-    font-size: 12px;
-}
-
-.close-tab {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.new-tab {
-    margin-left: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.address-bar {
-    display: flex;
-    align-items: center;
-    height: 40px;
-    padding: 0 10px;
-    gap: 10px;
-}
-
-.navigation {
-    display: flex;
-    gap: 5px;
-}
-
-.nav-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+    background-color: #e0e0e0;
 }
 
 .url-bar {
-    flex-grow: 1;
-    height: 30px;
-    background-color: #fff;
-    border-radius: 15px;
+    height: 49px;
     display: flex;
     align-items: center;
     padding: 0 10px;
+}
+
+.url-bar input {
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    border: 1px solid #d1d1d1;
+    padding: 0 10px;
     font-size: 14px;
     color: #333;
-    border: 1px solid #d1d1d1;
+    background-color: white;
 }
 
-.browser-actions {
-    display: flex;
-    gap: 5px;
-}
-
-.action-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Content area */
-.content-wrapper {
-    width: 100%;
-    height: calc(100% - 79px);
-    padding: 20px;
+/* Main content area */
+.content-area {
+    width: var(--content-width);
+    height: var(--content-height);
+    margin: 44px auto 0;
     position: relative;
 }
 
-.content {
-    width: 1528px;
-    height: 944px;
-    margin: 0 auto;
-    position: relative;
-}
-
-/* Logo and profile */
-.logo-container {
+/* Logo and profile section */
+.logo-section {
     position: absolute;
     top: 40px;
     left: 0;
@@ -137,23 +92,23 @@ body {
 .profile-image {
     width: 74px;
     height: 93px;
-    background-color: #ccc;
+    background-color: #ccc; /* Placeholder color */
 }
 
 .logo-image {
     width: 91px;
     height: 93px;
-    background-color: #ccc;
+    background-color: #ccc; /* Placeholder color */
 }
 
-/* Name header */
+/* Name styling */
 .name {
     position: absolute;
     top: 80px;
     left: 226px;
     font-size: 55px;
     font-weight: 700;
-    color: black;
+    color: var(--black);
 }
 
 /* Navigation links */
@@ -168,173 +123,187 @@ body {
 .nav-link {
     font-size: 30px;
     font-weight: 700;
-    color: black;
+    color: var(--black);
     text-decoration: none;
+    position: relative;
 }
 
-.about {
-    right: 316px;
-}
-
-.works {
-    right: 170px;
-}
-
-.connect {
-    right: 0;
-}
-
-/* Introduction Box */
-.intro-box {
+.nav-link::after {
+    content: '';
     position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--black);
+    transition: var(--transition);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Common section box styling */
+.section-box {
+    background-color: var(--section-bg);
+    position: absolute;
+    transition: var(--transition);
+}
+
+.section-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Section titles */
+.section-title {
+    font-size: 45px;
+    font-weight: 400;
+    color: var(--black);
+}
+
+/* Intro box specific styling */
+.intro-box {
     top: 146px;
     left: 0;
     width: 196px;
     height: 225px;
-    background-color: #EEEEEE;
-    border: 3px solid black;
+    border: 3px solid var(--black);
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    text-align: center;
 }
 
 .intro-text {
     font-size: 24px;
     font-weight: 700;
-    text-align: center;
 }
 
 .highlight {
-    color: #FF2F2F;
+    color: var(--highlight);
 }
 
-/* Academic Box */
+/* Academic box specific styling */
 .academic-box {
-    position: absolute;
     top: 166px;
     left: 226px;
     width: 344px;
     height: 206px;
-    background-color: #EEEEEE;
 }
 
-.academic-title {
+.academic-box .section-title {
     position: absolute;
     top: 15px;
     right: 15px;
-    font-size: 45px;
-    font-weight: 400;
 }
 
-.academic-circles {
+.academic-box .circle-container {
     position: absolute;
-    bottom: 40px;
+    bottom: 25px;
     left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 11px;
 }
 
-/* Professional Box */
+/* Professional box specific styling */
 .professional-box {
-    position: absolute;
     top: 408px;
     left: 0;
     width: 570px;
     height: 552px;
-    background-color: #EEEEEE;
 }
 
-.professional-title {
+.professional-box .section-title {
     position: absolute;
     top: 15px;
     left: 15px;
-    font-size: 45px;
-    font-weight: 400;
 }
 
-.professional-circles {
+.professional-box .circle-container {
     position: absolute;
     bottom: 40px;
-    left: 0;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
 
-/* Projects Box */
+/* Projects box specific styling */
 .projects-box {
-    position: absolute;
     top: 166px;
     right: 0;
     width: 919px;
     height: 794px;
-    background-color: #EEEEEE;
 }
 
-.projects-title {
+.projects-box .section-title {
     position: absolute;
     top: 15px;
     right: 15px;
-    font-size: 45px;
-    font-weight: 400;
 }
 
-.projects-circles {
+.projects-box .circle-container {
     position: absolute;
     bottom: 40px;
-    left: 0;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
 
-/* Circle styles */
+/* Circle styling */
 .circle {
     border-radius: 50%;
-    background-color: #CFCDCD;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
+.circle:hover {
+    transform: scale(1.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* Circle sizes and colors based on Figma design */
 .smallest {
     width: 41px;
     height: 41px;
-    background-color: #FCFAFA;
+    background-color: var(--circle-lightest);
 }
 
 .small {
     width: 81px;
     height: 81px;
-    background-color: #E1DEDE;
+    background-color: var(--circle-medium);
 }
 
 .medium {
     width: 122px;
     height: 122px;
-    background-color: #CFCDCD;
+    background-color: var(--circle-dark);
 }
 
 .large {
     width: 184px;
     height: 184px;
-    background-color: #CFCDCD;
+    background-color: var(--circle-dark);
 }
 
 /* Academic specific circles */
-.academic-circles .small {
+.academic-box .small {
     width: 43px;
     height: 43px;
-    background-color: #D8D8D8;
+    background-color: var(--circle-light);
 }
 
-.academic-circles .medium {
+.academic-box .medium {
     width: 80px;
     height: 80px;
-    background-color: #D8D8D8;
+    background-color: var(--circle-light);
 }
 
 /* Scroll indicator */
@@ -347,4 +316,35 @@ body {
     border-radius: 8px;
     outline: 10px solid white;
     outline-offset: -5px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.scroll-indicator:hover {
+    transform: scale(1.2);
+}
+
+/* Responsive scaling */
+@media (max-width: 1728px) {
+    #viewport {
+        transform: scale(calc(100vw / 1728));
+        width: 1728px;
+        height: 1117px;
+    }
+}
+
+@media (max-height: 1117px) {
+    #viewport {
+        transform: scale(calc(100vh / 1117));
+        width: 1728px;
+        height: 1117px;
+    }
+}
+
+@media (max-width: 1728px) and (max-height: 1117px) {
+    #viewport {
+        transform: scale(min(calc(100vw / 1728), calc(100vh / 1117)));
+        width: 1728px;
+        height: 1117px;
+    }
 }
