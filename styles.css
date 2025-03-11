@@ -104,63 +104,31 @@ header {
 }
 
 /* Hero Section */
+.hero {
+    margin: 50px 0;
+}
+
 .hero-container {
     display: flex;
     gap: 50px;
     align-items: center;
-    margin: 50px 0;
-}
-
-.hero-image {
-    width: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.hero-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover; /* This helps maintain aspect ratio while filling the container */
-}
-
-.hero-image {
-    position: relative;
-}
-
-.hero-image::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #f0f0f0;
-    z-index: 1;
-}
-
-.hero-image img {
-    position: relative;
-    z-index: 2;
-}
-
-.hero-image img.loaded {
-    animation: fadeIn 0.5s;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 .hero-content {
+    width: 45%;
+}
+
+.Projects {
     width: 55%;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .hero-title {
     font-size: 48px;
     font-weight: 700;
     margin-bottom: 20px;
+    color: var(--primary-blue);
 }
 
 .hero-description {
@@ -229,19 +197,16 @@ header {
     position: relative;
 }
 
-/* Customize scrollbar for better visibility */
-.section-content::-webkit-scrollbar,
-.library-content::-webkit-scrollbar {
+/* Customize scrollbar */
+.section-content::-webkit-scrollbar {
     width: 6px;
 }
 
-.section-content::-webkit-scrollbar-track,
-.library-content::-webkit-scrollbar-track {
+.section-content::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
-.section-content::-webkit-scrollbar-thumb,
-.library-content::-webkit-scrollbar-thumb {
+.section-content::-webkit-scrollbar-thumb {
     background: var(--primary-blue);
     border-radius: 3px;
 }
@@ -265,8 +230,7 @@ header {
     to { transform: translateX(-50%) translateY(10px); }
 }
 
-.section-content.scrollable .scroll-indicator,
-.library-content.scrollable .scroll-indicator {
+.section-content.scrollable .scroll-indicator {
     opacity: 1;
 }
 
@@ -280,80 +244,88 @@ header {
     flex: 1;
 }
 
-/* Philosophy Section */
-.philosophy-icons {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    align-items: center;
-}
-
-.philosophy-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.philosophy-item:hover {
-    transform: translateY(-5px);
-}
-
-.philosophy-item img {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 10px;
-    object-fit: contain; /* This ensures the image maintains its aspect ratio */
-}
-
-.philosophy-item h3 {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-/* Founder Section */
-.founder-details {
+/* Introduction Section */
+.introduction-details {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
 
-.founder-info {
-    width: 40%;
+.My-info {
+    width: 60%;
 }
 
-.founder-info h3, .founder-info p {
-    font-size: 20px;
+.My-info h3 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--primary-blue);
+}
+
+.My-info p {
+    font-size: 18px;
     margin-bottom: 5px;
 }
 
-.founder-image {
+.My-image {
     width: 180px;
     height: 180px;
-    background-color: #D9D9D9;
     overflow: hidden;
+    border-radius: 5px;
 }
 
-.founder-message p {
+.My-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.Introduction-message p {
     font-size: 18px;
     line-height: 1.6;
 }
 
-/* Events Section */
-.events-content {
+/* Works Section */
+.My.Works {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.event-item {
+.works-item {
     width: 100%;
-    height: 180px;
-    background-color: #D9D9D9;
+    border-radius: 5px;
     overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.works-item:hover {
+    transform: scale(1.03);
+}
+
+.works-item img {
+    width: 100%;
+    display: block;
+}
+
+/* Contact Section */
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-item {
+    width: 100%;
     position: relative;
     cursor: pointer;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.contact-item img {
+    width: 100%;
+    display: block;
 }
 
 .event-overlay {
@@ -370,22 +342,17 @@ header {
     gap: 5px;
 }
 
-.event-item:hover .event-overlay {
+.contact-item:hover .event-overlay {
     bottom: 0;
 }
 
-.event-date {
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-.event-title {
+.event-Contact {
     font-size: 18px;
     font-weight: bold;
 }
 
-.event-location {
-    font-size: 14px;
+.event-emailid {
+    font-size: 16px;
     margin-bottom: 10px;
 }
 
@@ -393,95 +360,6 @@ header {
     color: white;
     text-decoration: underline;
     align-self: flex-end;
-}
-
-/* Library Section */
-.library-section .section-header {
-    width: 100%;
-}
-
-.library-container {
-    display: flex;
-    gap: 30px;
-}
-
-.library-column {
-    flex: 1;
-    border: 1px solid var(--black);
-    background: var(--white);
-}
-
-.library-header {
-    padding: 15px;
-    text-align: center;
-    color: var(--primary-blue);
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.library-content {
-    padding: 20px;
-    max-height: 300px;
-    overflow-y: auto;
-    position: relative;
-}
-
-.gallery-image, 
-.blog-image, 
-.team-image {
-    width: 100%;
-    height: 180px;
-    background-color: #D9D9D9;
-    margin-bottom: 20px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-.gallery-image:hover, 
-.blog-image:hover, 
-.team-image:hover {
-    transform: scale(1.03);
-}
-
-/* Location Section */
-.address-list h3 {
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 1.5;
-}
-
-/* Contact Section */
-.contact-options {
-    display: flex;
-    gap: 30px;
-}
-
-.contact-box {
-    flex: 1;
-    background-color: #D9D9D9;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-}
-
-.contact-box h3 {
-    text-align: center;
-}
-
-.contact-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    background-color: #C1C1C1;
-}
-
-.contact-box:focus {
-    outline: 3px solid var(--primary-blue);
-    outline-offset: -3px;
 }
 
 /* Footer */
@@ -568,15 +446,11 @@ button:focus,
         flex-direction: column;
     }
     
-    .hero-image, .hero-content {
+    .Projects, .hero-content {
         width: 100%;
     }
     
     .columns {
-        flex-direction: column;
-    }
-    
-    .library-container {
         flex-direction: column;
     }
     
@@ -596,22 +470,7 @@ button:focus,
         width: 120px;
         height: 120px;
     }
-}
-
-@media (max-width: 480px) {
-    /* Smaller screens */
-    .logo-circle {
-        width: 80px;
-        height: 80px;
-    }
     
-    .footer-logo {
-        width: 100px;
-        height: 100px;
-    }
-}
-
-@media (max-width: 768px) {
     .mobile-menu-toggle {
         display: block;
     }
@@ -647,16 +506,19 @@ button:focus,
         transform: rotate(-45deg) translate(5px, -6px);
     }
     
-    .contact-options {
-        flex-direction: column;
-    }
-    
     .hero-title {
         font-size: 36px;
     }
     
-    .address-list h3 {
-        font-size: 24px;
+    .introduction-details {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .My-info {
+        width: 100%;
+        margin-bottom: 20px;
     }
 }
 
@@ -667,7 +529,7 @@ button:focus,
     }
     
     .logo {
-        width: 30px;
+        height: 50%;
     }
     
     .nav-links {
@@ -685,16 +547,11 @@ button:focus,
     .section-header h2 {
         font-size: 20px;
     }
-    
-    .contact-box {
-        height: 150px;
-        font-size: 24px;
-    }
 }
 
 /* Touch device optimizations */
 @media (hover: none) {
-    .nav-link, .cta-button, .contact-box {
+    .nav-link, .cta-button {
         padding: 12px;
     }
     
@@ -704,7 +561,7 @@ button:focus,
         overflow: hidden;
     }
     
-    .event-item:active .event-overlay {
+    .contact-item:active .event-overlay {
         height: auto;
     }
 }
