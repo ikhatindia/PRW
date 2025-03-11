@@ -1,6 +1,6 @@
 /**
- * IKHAT Website JavaScript
- * This file contains all interactive functionality for the IKHAT website
+ * Portfolio Website JavaScript
+ * This file contains all interactive functionality for the Portfolio website
  */
 document.addEventListener('DOMContentLoaded', function() {
     // Cache DOM elements for better performance
@@ -8,11 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileMenuToggle: document.querySelector('.mobile-menu-toggle'),
         navLinks: document.querySelectorAll('.nav-links a'),
         navMenu: document.querySelector('.nav-links'),
-        sections: document.querySelectorAll('section'),
-        scrollableAreas: document.querySelectorAll('.section-content, .library-content'),
+        sections: document.querySelectorAll('section, .section'),
+        scrollableAreas: document.querySelectorAll('.section-content'),
         ctaButton: document.querySelector('.cta-button'),
-        contactBoxes: document.querySelectorAll('.contact-box'),
-        eventItems: document.querySelectorAll('.event-item'),
+        contactItem: document.querySelector('.contact-item'),
         images: document.querySelectorAll('img')
     };
 
@@ -58,7 +57,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
                 
-                const targetElement = document.querySelector(targetId);
+                // Map "connect" to "contact" since that's the actual ID in the HTML
+                const actualTargetId = targetId === '#connect' ? '#contact' : targetId;
+                
+                const targetElement = document.querySelector(actualTargetId);
                 if (targetElement) {
                     // Calculate position with offset for header
                     const headerOffset = 100;
@@ -95,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const handleScroll = throttle(function() {
             const scrollPosition = window.scrollY + 200; // Add offset for better detection
             
-            // Find the current section
+            // Find the current section - include both sections and divs with section class
             elements.sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.offsetHeight;
@@ -105,8 +107,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Remove active class from all links
                     elements.navLinks.forEach(link => link.classList.remove('active'));
                     
+                    // Map "contact" to "connect" for navigation highlighting
+                    const navTargetId = sectionId === 'contact' ? 'connect' : sectionId;
+                    
                     // Add active class to current section's link
-                    const currentLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+                    const currentLink = document.querySelector(`.nav-links a[href="#${navTargetId}"]`);
                     if (currentLink) {
                         currentLink.classList.add('active');
                     }
@@ -201,28 +206,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Add interactivity to contact boxes
-     * Makes contact boxes interactive with hover effects and click handling
+     * Add interactivity to contact item
+     * Makes contact item interactive with hover effects
      */
-    function initContactBoxes() {
-        elements.contactBoxes.forEach(box => {
-            // Handle click events
-            box.addEventListener('click', function() {
-                const boxTitle = this.querySelector('h3').textContent;
-                
-                // In a real implementation, you would show a form here
-                // For now, we'll just show an alert
-                alert(`You clicked "${boxTitle}". Contact form functionality will be implemented soon.`);
-            });
-            
-            // Handle keyboard events for accessibility
-            box.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
+    function initContactItem() {
+        if (!elements.contactItem) return;
+        
+        // Handle keyboard events for accessibility
+        elements.contactItem.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const overlay = this.querySelector('.event-overlay');
+                if (overlay) {
+                    overlay.style.bottom = overlay.style.bottom === '0px' ? '-100%' : '0px';
                 }
-            });
+            }
         });
+        
+        // Make it focusable for keyboard navigation
+        elements.contactItem.setAttribute('tabindex', '0');
     }
 
     /**
@@ -241,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, { threshold: 0.1 });
             
             // Elements to animate
-            const animateElements = document.querySelectorAll('.philosophy-item, .contact-box, .event-item');
+            const animateElements = document.querySelectorAll('.section, .contact-item, .works-item');
             
             animateElements.forEach(el => {
                 el.classList.add('animation-ready');
@@ -274,33 +276,23 @@ document.addEventListener('DOMContentLoaded', function() {
      * Shows a placeholder image when the actual image fails to load
      */
     function handleImageFallbacks() {
-    // Keep track of whether we've logged about the logo already
-    let logoErrorLogged = false;
-    
-    elements.images.forEach(img => {
-        img.addEventListener('error', function() {
-            // Special handling for logo
-            if (this.alt === "IKHAT Logo") {
-                // Only log the error once to avoid duplicate messages
-                if (!logoErrorLogged) {
-                    console.warn("Logo failed to load: assets/Logo.png");
-                    logoErrorLogged = true;
+        elements.images.forEach(img => {
+            img.addEventListener('error', function() {
+                // For logo images
+                if (this.classList.contains('logo')) {
+                    this.outerHTML = `<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">
+                                      <span style="color:var(--primary-blue); font-weight:bold; font-size:18px;">PR</span>
+                                    </div>`;
+                    return;
                 }
                 
-                // Create a text-based logo as fallback
-                this.outerHTML = `<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">
-                                    <span style="color:var(--primary-blue); font-weight:bold; font-size:18px;">IKHAT</span>
-                                  </div>`;
-                return;
-            }
-            
-            // For other images
-            const width = this.width || this.parentElement.offsetWidth || 300;
-            const height = this.height || this.parentElement.offsetHeight || 200;
-            this.src = `https://via.placeholder.com/${width}x${height}?text=${this.alt || 'Image'}`;
+                // For other images
+                const width = this.width || this.parentElement.offsetWidth || 300;
+                const height = this.height || this.parentElement.offsetHeight || 200;
+                this.src = `https://via.placeholder.com/${width}x${height}?text=${this.alt || 'Image'}`;
+            });
         });
-    });
-}
+    }
 
     /**
      * Add skip link for keyboard accessibility
@@ -316,9 +308,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Insert at the beginning of the body
         document.body.insertBefore(skipLink, document.body.firstChild);
         
-        // Add id to main element
+        // Add id to main element if it doesn't have one
         const main = document.querySelector('main');
-        if (main) {
+        if (main && !main.id) {
             main.id = 'main';
         }
     }
@@ -332,12 +324,12 @@ document.addEventListener('DOMContentLoaded', function() {
         initScrollSpy();
         initScrollableAreas();
         initCtaButton();
-        initContactBoxes();
+        initContactItem();
         initScrollAnimations();
         handleImageFallbacks();
         addSkipLink();
         
-        console.log('IKHAT website initialization complete');
+        console.log('Portfolio website initialization complete');
     }
     
     // Start initialization
