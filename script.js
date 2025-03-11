@@ -1,184 +1,272 @@
 /**
- * Portfolio Website JavaScript
- * Minimalist monochrome theme
+ * Prashanto Roy Portfolio JavaScript
+ * Controls interactive elements, animations, and navigation
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize reveal animations
-    initRevealAnimations();
+    // Elements
+    const sections = document.querySelectorAll('.button-section');
+    const circles = document.querySelectorAll('.circle');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
     
-    // Initialize active navigation
-    initActiveNavigation();
-    
-    // Form handling (optional)
-    initContactForm();
-});
-
-/**
- * Reveal elements when they come into view using Intersection Observer
- */
-function initRevealAnimations() {
-    // Create the observer with options
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Add visible class to show the element
-                entry.target.classList.add('visible');
-                
-                // Unobserve the element after it's been revealed
-                // This improves performance for elements that remain in view
-                observer.unobserve(entry.target);
+    /**
+     * Initialize all page animations and interactions
+     */
+    function init() {
+        // Apply entrance animations with staggered delay
+        sections.forEach((section, index) => {
+            setTimeout(() => {
+                section.classList.add('animate-in');
+            }, 100 * index);
+        });
+        
+        // Set up interactive behaviors
+        setupCircleInteractions();
+        setupSectionInteractions();
+        setupNavigationInteractions();
+        setupScrollIndicator();
+        
+        // Set first circle in each section as active initially
+        document.querySelectorAll('.circle-nav').forEach(nav => {
+            if (nav.children.length > 0) {
+                nav.children[0].classList.add('active');
             }
         });
-    }, { 
-        threshold: 0.1,  // Trigger when at least 10% of the element is visible
-        rootMargin: '0px 0px -100px 0px'  // Adjust the trigger area (negative values delay trigger)
-    });
-    
-    // Target all elements with the 'hidden' class
-    const hiddenElements = document.querySelectorAll('.hidden');
-    hiddenElements.forEach(el => {
-        observer.observe(el);
-    });
-}
-
-/**
- * Update active navigation link based on scroll position
- */
-function initActiveNavigation() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    // Throttle function to limit how often scroll event fires
-    function throttle(callback, delay) {
-        let lastCall = 0;
-        return function() {
-            const now = Date.now();
-            if (now - lastCall >= delay) {
-                lastCall = now;
-                callback.apply(this, arguments);
-            }
-        };
     }
     
-    const handleScroll = throttle(() => {
-        // Get current scroll position
-        const scrollPosition = window.scrollY + window.innerHeight / 3;
-        
-        // Check each section to see if it's in view
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                // Remove active class from all links
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
+    /**
+     * Sets up circle button interactions
+     */
+    function setupCircleInteractions() {
+        circles.forEach(circle => {
+            // Mouse hover effects
+            circle.addEventListener('mouseenter', () => {
+                // Deactivate other circles in same navigation
+                const siblings = circle.parentElement.querySelectorAll('.circle');
+                siblings.forEach(sibling => {
+                    sibling.classList.remove('active');
                 });
                 
-                // Add active class to current section's link
-                const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-                if (activeLink) {
-                    activeLink.classList.add('active');
+                // Activate this circle
+                circle.classList.add('active');
+                
+                // Trigger content change based on circle index
+                const index = Array.from(circle.parentElement.children).indexOf(circle);
+                const sectionId = circle.closest('.button-section').id;
+                changeContent(sectionId, index);
+            });
+            
+            // Click behavior (for loading related page or content)
+            circle.addEventListener('click', () => {
+                // Get section ID and circle index
+                const sectionId = circle.closest('.button-section').id;
+                const index = Array.from(circle.parentElement.children).indexOf(circle);
+                
+                // Navigate to the specific content
+                navigateToContent(sectionId, index);
+            });
+        });
+    }
+    
+    /**
+     * Sets up interactions for main section boxes
+     */
+    function setupSectionInteractions() {
+        sections.forEach(section => {
+            // Click behavior (navigate to section page)
+            section.addEventListener('click', (event) => {
+                // Only trigger if the click wasn't on a circle
+                if (!event.target.classList.contains('circle')) {
+                    navigateToSection(section.id);
+                }
+            });
+            
+            // Add focus states for keyboard navigation
+            section.setAttribute('tabindex', '0');
+            section.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    navigateToSection(section.id);
+                }
+            });
+        });
+    }
+    
+    /**
+     * Sets up navigation link interactions
+     */
+    function setupNavigationInteractions() {
+        navLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                
+                // Get the target section from the href
+                const targetId = link.getAttribute('href').substring(1);
+                navigateToSection(targetId);
+            });
+        });
+    }
+    
+    /**
+     * Sets up scroll indicator behavior
+     */
+    function setupScrollIndicator() {
+        if (scrollIndicator) {
+            scrollIndicator.addEventListener('click', () => {
+                window.scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Hide/show based on scroll position
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    scrollIndicator.style.opacity = '0';
+                } else {
+                    scrollIndicator.style.opacity = '1';
+                }
+            });
+        }
+    }
+    
+    /**
+     * Handles content changes when hovering over circles
+     * @param {string} sectionId - ID of the section
+     * @param {number} index - Index of the content to show
+     */
+    function changeContent(sectionId, index) {
+        // This would update content within the section based on the selected circle
+        console.log(`Changing ${sectionId} content to item ${index}`);
+        
+        // Here you would add logic to:
+        // 1. Load or display the specific content associated with this index
+        // 2. Update any visual indicators
+        
+        // For example, if you had content divs:
+        // const contentItems = document.querySelectorAll(`#${sectionId}-content .content-item`);
+        // contentItems.forEach(item => item.classList.remove('active'));
+        // contentItems[index]?.classList.add('active');
+    }
+    
+    /**
+     * Navigate to a specific piece of content within a section
+     * @param {string} sectionId - ID of the section
+     * @param {number} index - Index of the content to navigate to
+     */
+    function navigateToContent(sectionId, index) {
+        console.log(`Navigating to ${sectionId} content item ${index}`);
+        
+        // Create page transition effect
+        const transition = createTransitionElement();
+        
+        // After transition completes, you would:
+        // 1. Change the URL (using history API)
+        // 2. Load the new page content
+        
+        setTimeout(() => {
+            // Simulate page change (replace with actual navigation)
+            // window.location.href = `/${sectionId}/${index}`;
+            
+            // For demo purposes, just remove the transition
+            transition.classList.add('exit');
+            setTimeout(() => {
+                transition.remove();
+            }, 500);
+        }, 500);
+    }
+    
+    /**
+     * Navigate to a section page
+     * @param {string} sectionId - ID of the section to navigate to
+     */
+    function navigateToSection(sectionId) {
+        console.log(`Navigating to section: ${sectionId}`);
+        
+        // Create page transition effect
+        const transition = createTransitionElement();
+        
+        // After transition completes, navigate to the section page
+        setTimeout(() => {
+            // Simulate page change (replace with actual navigation)
+            // window.location.href = `/${sectionId}`;
+            
+            // For demo purposes, just remove the transition
+            transition.classList.add('exit');
+            setTimeout(() => {
+                transition.remove();
+            }, 500);
+        }, 500);
+    }
+    
+    /**
+     * Creates a transition element for page changes
+     * @returns {Element} The transition element
+     */
+    function createTransitionElement() {
+        const transition = document.createElement('div');
+        transition.classList.add('page-transition');
+        document.body.appendChild(transition);
+        
+        // Trigger animation
+        setTimeout(() => {
+            transition.classList.add('active');
+        }, 10);
+        
+        return transition;
+    }
+    
+    /**
+     * Load content for sections (simulated)
+     * In a real implementation, this might fetch content from an API or load HTML partials
+     */
+    function loadContentForSections() {
+        // This is a placeholder for actual content loading
+        console.log('Loading section content');
+        
+        // Example of how you might populate images for circles:
+        // circles.forEach((circle, index) => {
+        //     circle.style.backgroundImage = `url('/images/thumbnail-${index}.jpg')`;
+        // });
+    }
+    
+    // Add responsive behavior for window resizing
+    function handleResize() {
+        // This function could handle special cases for different screen sizes
+        // For now, our CSS handles most of the responsive behavior
+    }
+    
+    // Add resize listener
+    window.addEventListener('resize', handleResize);
+    
+    // Initialize keyboard navigation for accessibility
+    function setupKeyboardNavigation() {
+        document.addEventListener('keydown', (event) => {
+            // Tab key is handled natively for focusing elements
+            
+            // Arrow keys for navigating between sections when focused
+            if (document.activeElement.classList.contains('button-section')) {
+                const section = document.activeElement;
+                const circleNav = section.querySelector('.circle-nav');
+                
+                if (circleNav) {
+                    const circles = circleNav.querySelectorAll('.circle');
+                    const activeIndex = Array.from(circles).findIndex(circle => 
+                        circle.classList.contains('active'));
+                    
+                    if (event.key === 'ArrowLeft' && activeIndex > 0) {
+                        circles[activeIndex - 1].dispatchEvent(new Event('mouseenter'));
+                    } else if (event.key === 'ArrowRight' && activeIndex < circles.length - 1) {
+                        circles[activeIndex + 1].dispatchEvent(new Event('mouseenter'));
+                    }
                 }
             }
         });
-    }, 100);
+    }
     
-    // Add event listener for scroll
-    window.addEventListener('scroll', handleScroll);
-    
-    // Call once on page load
-    handleScroll();
-}
-
-/**
- * Handle contact form submission
- */
-function initContactForm() {
-    const contactForm = document.querySelector('.contact-form');
-    
-    if (!contactForm) return;
-    
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const nameInput = document.getElementById('name');
-        const emailInput = document.getElementById('email');
-        const messageInput = document.getElementById('message');
-        
-        // Basic validation
-        if (!nameInput.value || !emailInput.value || !messageInput.value) {
-            alert('Please fill in all fields');
-            return;
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(emailInput.value)) {
-            alert('Please enter a valid email address');
-            return;
-        }
-        
-        // Here you would normally send the form data to a server
-        // For this example, we'll just display a success message
-        
-        // Get the submit button
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitButton.innerHTML;
-        
-        // Show sending state
-        submitButton.innerHTML = 'Sending...';
-        submitButton.disabled = true;
-        
-        // Simulate form submission with a timeout
-        setTimeout(() => {
-            // Create success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'form-success';
-            successMessage.style.padding = '1rem';
-            successMessage.style.marginTop = '1rem';
-            successMessage.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
-            successMessage.style.borderRadius = '4px';
-            successMessage.style.color = 'var(--gray-900)';
-            successMessage.innerHTML = '<strong>Message sent!</strong><br>Thank you for reaching out, I\'ll get back to you soon.';
-            
-            // Clear the form fields
-            contactForm.reset();
-            
-            // Reset the button
-            submitButton.innerHTML = originalText;
-            submitButton.disabled = false;
-            
-            // Add success message to the form
-            contactForm.appendChild(successMessage);
-            
-            // Remove the success message after a delay
-            setTimeout(() => {
-                successMessage.style.opacity = '0';
-                setTimeout(() => {
-                    contactForm.removeChild(successMessage);
-                }, 300);
-            }, 5000);
-        }, 1500);
-    });
-}
-
-/**
- * Add mobile menu functionality
- * (Uncomment and modify this if you decide to add a mobile menu toggle)
- */
-/*
-function initMobileMenu() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (!menuToggle || !navLinks) return;
-    
-    menuToggle.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-        menuToggle.classList.toggle('active');
-    });
-}
-*/
+    // Call initialization functions
+    init();
+    loadContentForSections();
+    setupKeyboardNavigation();
+    handleResize();
+});
