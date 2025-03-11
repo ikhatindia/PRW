@@ -3,193 +3,704 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prashanto Roy | Portfolio</title>
+    <title>Prashanto Roy - Portfolio</title>
     <style>
-        /* Basic reset */
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        
-        body {
             font-family: 'Garamond', serif;
-            background-color: white;
-            padding: 20px;
         }
-        
-        /* Header and logo */
-        .header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 40px;
+
+        body {
+            color: #000;
+            background-color: #fff;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
         }
-        
-        .profile, .logo {
-            background-color: #ddd;
-            margin-right: 10px;
+
+        /* Container for precise positioning */
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
         }
-        
-        .profile {
+
+        /* Logo and brand */
+        .logo-left {
+            position: absolute;
             width: 76px;
             height: 96px;
+            left: 79px;
+            top: 60px;
+            background-color: #ccc;
         }
-        
-        .logo {
+
+        .logo-right {
+            position: absolute;
             width: 94px;
             height: 96px;
+            left: 187px;
+            top: 60px;
+            background-color: #ccc;
         }
-        
-        .title {
-            font-size: 40px;
-            font-weight: bold;
-            margin-left: 20px;
-            margin-right: auto;
-        }
-        
-        /* Navigation */
-        .nav {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .nav a {
-            text-decoration: none;
+
+        .name {
+            position: absolute;
+            width: 868px;
+            height: 51px;
+            left: 312px;
+            top: 106px;
             color: black;
+            font-size: 55px;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        .nav-about {
+            position: absolute;
+            width: 142px;
+            height: 27px;
+            left: 1193px;
+            top: 129px;
+            text-align: right;
+            color: black;
+            font-size: 30px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .nav-works {
+            position: absolute;
+            width: 138px;
+            height: 27px;
+            left: 1344px;
+            top: 129px;
+            text-align: right;
+            color: black;
+            font-size: 30px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .nav-connect {
+            position: absolute;
+            width: 142px;
+            height: 27px;
+            left: 1514px;
+            top: 129px;
+            text-align: right;
+            color: black;
+            font-size: 30px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* Main content sections */
+        .intro-box {
+            position: absolute;
+            width: 202px;
+            height: 214px;
+            left: 79px;
+            top: 190px;
+            background: #EEEEEE;
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .intro-text {
+            position: absolute;
+            width: 184px;
+            height: 67px;
+            left: 10px; /* Changed from 89px absolute to 10px relative to box */
+            top: 15px; /* Changed from 205px absolute to 15px relative to box */
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 700;
         }
-        
-        /* Content grid */
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr 2fr;
-            grid-template-rows: auto 1fr;
-            gap: 20px;
+
+        .intro-link {
+            color: #FF2F2F;
+            text-decoration: none;
+            cursor: pointer;
         }
-        
-        /* Boxes styling */
-        .box {
-            background-color: #f0f0f0;
-            padding: 20px;
-            border-radius: 20px;
+
+        .academic-box {
+            position: absolute;
+            width: 356px;
+            height: 214px;
+            left: 312px;
+            top: 190px;
+            background: #EEEEEE;
+            border-radius: 0;
+            overflow: hidden;
         }
-        
-        .intro {
-            grid-column: 1;
-            grid-row: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px;
+
+        .academic-title {
+            position: absolute;
+            width: 319px;
+            height: 45px;
+            left: 20px; /* Changed from 331px absolute to 20px relative to box */
+            top: 16px; /* Changed from 206px absolute to 16px relative to box */
+            text-align: right;
+            color: black;
+            font-size: 45px;
+            font-weight: 400;
         }
-        
-        .highlight {
-            color: red;
+
+        .professional-box {
+            position: absolute;
+            width: 589px;
+            height: 571px;
+            left: 79px;
+            top: 441px;
+            background: #EEEEEE;
+            border-radius: 0;
+            overflow: hidden;
+            padding-bottom: 50px; /* Added to ensure content doesn't overlap dots */
         }
-        
-        .academic {
-            grid-column: 2;
-            grid-row: 1;
+
+        .professional-title {
+            position: absolute;
+            width: 276px;
+            height: 59px;
+            left: 20px; /* Changed from 98px absolute to 20px relative to box */
+            top: 13px; /* Changed from 454px absolute to 13px relative to box */
+            color: black;
+            font-size: 45px;
+            font-weight: 400;
         }
-        
-        .professional {
-            grid-column: 1 / 3;
-            grid-row: 2;
+
+        .projects-box {
+            position: absolute;
+            width: 951px;
+            height: 822px;
+            left: 704px;
+            top: 190px;
+            background: #EEEEEE;
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), #EEEEEE;
+            border-radius: 0;
+            overflow: hidden;
+            padding-bottom: 50px; /* Added to ensure content doesn't overlap dots */
         }
-        
-        .projects {
-            grid-column: 3;
-            grid-row: 1 / 3;
+
+        .projects-title {
+            position: absolute;
+            width: 174px;
+            height: 59px;
+            right: 30px; /* Changed to be relative to projects box */
+            top: 16px; /* Changed from 206px absolute to 16px relative to box */
+            text-align: right;
+            color: black;
+            font-size: 45px;
+            font-weight: 400;
         }
-        
-        .footer {
-            background-color: #333;
+
+        /* Footer indicator */
+        .footer-indicator {
+            position: absolute;
+            width: 32px;
+            height: 14px;
+            left: 21px;
+            top: 1061px;
+            border-radius: 8px;
+            outline: 10px white solid;
+            outline-offset: -5px;
+        }
+
+        .footer-text {
+            position: absolute;
+            width: 368px;
+            height: 59px;
+            left: 81px;
+            top: 1075px;
             color: white;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        /* Carousel dots - exact positions from design */
+        #academic-dot-1 {
+            left: 437px;
+            top: 362px;
+        }
+
+        #academic-dot-2 {
+            left: 476px;
+            top: 362px;
+        }
+
+        #academic-dot-3 {
+            left: 515px;
+            top: 362px;
+        }
+
+        /* Professional dots - exact positions from design */
+        #professional-dot-1 {
+            left: 246px;
+            top: 937px;
+        }
+
+        #professional-dot-2 {
+            left: 285px;
+            top: 937px;
+        }
+
+        #professional-dot-3 {
+            left: 324px;
+            top: 937px;
+        }
+
+        #professional-dot-4 {
+            left: 363px;
+            top: 937px;
+        }
+
+        #professional-dot-5 {
+            left: 402px;
+            top: 937px;
+        }
+
+        #professional-dot-6 {
+            left: 441px;
+            top: 937px;
+        }
+
+        /* Projects dots - exact positions from design */
+        #projects-dot-1 {
+            left: 1069px;
+            top: 937px;
+        }
+
+        #projects-dot-2 {
+            left: 1108px;
+            top: 937px;
+        }
+
+        #projects-dot-3 {
+            left: 1147px;
+            top: 937px;
+        }
+
+        #projects-dot-4 {
+            left: 1186px;
+            top: 937px;
+        }
+
+        #projects-dot-5 {
+            left: 1225px;
+            top: 937px;
+        }
+
+        #projects-dot-6 {
+            left: 1264px;
+            top: 937px;
+        }
+
+        /* Carousel content */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 110px); /* Adjusted to keep content away from dots */
+            padding-top: 80px; /* Space for title */
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            right: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            overflow-y: auto;
+            max-height: calc(100% - 50px);
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        /* Dot styling */
+        .dot {
+            position: absolute;
+            width: 27px;
+            height: 26px;
+            background: #B3B3B3;
+            border-radius: 9999px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .dot:hover {
+            background: #999;
+        }
+
+        .dot.active {
+            background: #777;
+        }
+
+        /* Content styling */
+        .carousel-slide h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .carousel-slide h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .carousel-slide p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .carousel-slide ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .carousel-slide li {
+            margin-bottom: 5px;
+        }
+
+        /* Bio text styling */
+        #bio-text {
             padding: 15px;
-            margin-top: 20px;
+            font-size: 16px;
         }
-        
-        /* Circles */
-        .circles {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
+
+        /* Resume content formatting */
+        .section-heading {
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 15px;
+            margin-bottom: 10px;
         }
-        
-        .circle {
-            width: 20px;
-            height: 20px;
-            background-color: #999;
-            border-radius: 50%;
+
+        .job-title {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .job-period {
+            font-style: italic;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        /* Responsive scaling */
+        @media screen and (max-width: 1680px) {
+            body {
+                zoom: 0.9;
+            }
+        }
+
+        @media screen and (max-width: 1440px) {
+            body {
+                zoom: 0.75;
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+            body {
+                zoom: 0.55;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                zoom: 0.4;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header section -->
-    <div class="header">
-        <div class="profile">76 × 96</div>
-        <div class="logo">94 × 96</div>
-        <h1 class="title">PRASHANTO ROY</h1>
-        <nav class="nav">
-            <a href="#about">About</a>
-            <a href="#works">Works</a>
-            <a href="#connect">Connect</a>
-        </nav>
-    </div>
-    
-    <!-- Main content -->
-    <div class="content">
-        <!-- Intro box -->
-        <div class="box intro">
-            Kindly allow me <span class="highlight">introduce</span> myself.
-        </div>
+    <div class="container">
+        <!-- Logo and header -->
+        <div class="logo-left"></div>
+        <div class="logo-right"></div>
+        <h1 class="name">PRASHANTO ROY</h1>
         
-        <!-- Academic box -->
-        <div class="box academic">
-            <h2>Academic</h2>
-            <div>Slide 1</div>
-            <div class="circles">
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
+        <!-- Navigation -->
+        <a href="#about" class="nav-about">About</a>
+        <a href="#works" class="nav-works">Works</a>
+        <a href="#connect" class="nav-connect">Connect</a>
+        
+        <!-- Introduction Section -->
+        <div class="intro-box">
+            <div class="intro-text">
+                Kindly allow me <span class="intro-link" id="introduce-link">introduce</span> myself.
             </div>
         </div>
         
-        <!-- Professional box -->
-        <div class="box professional">
-            <h2>Professional</h2>
-            <div>Slide 6</div>
-            <div class="circles">
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
+        <!-- Academic Section -->
+        <div class="academic-box">
+            <div class="academic-title">Academic</div>
+            <div class="carousel-container" id="academic-carousel">
+                <!-- Academic Carousel Slides -->
+                <div class="carousel-slide" data-index="0">
+                    <h3>MSc. Construction Project Management</h3>
+                    <p>Loughborough University (United Kingdom) | 2023-2024</p>
+                    <p><strong>Grade:</strong> 2:1 (Merit)</p>
+                    <p><strong>Dissertation:</strong> Time Performance Study of Water Megaprojects</p>
+                    <p><strong>Core Modules:</strong> Project Management, Design Management, Design and Construction Management, Sustainability in the Built Environment</p>
+                </div>
+                <div class="carousel-slide" data-index="1">
+                    <h3>Bachelor of Architecture (B.Arch.)</h3>
+                    <p>Vastu Kala Academy of Architecture GGSIPU (India) | 2015-2020</p>
+                    <p><strong>Grade:</strong> 7.02 CGPA</p>
+                    <p><strong>Thesis:</strong> Cultural and Economic Centre, Cherrapunji, India</p>
+                    <p><strong>Dissertation:</strong> Integration of Indigenous design principles in the contemporary world</p>
+                </div>
+                <div class="carousel-slide" data-index="2">
+                    <h3>Secondary Education (CBSE)</h3>
+                    <p>Modern School, Barakhamba Road (New Delhi, India) | 2012-2014</p>
+                    <p>12th Grade: 85.4% (Physics, Chemistry, Mathematics, English & Economics)</p>
+                    <p>10th Grade: 8.2 CGPA</p>
+                </div>
             </div>
         </div>
         
-        <!-- Projects box -->
-        <div class="box projects">
-            <h2>Projects</h2>
-            <div>Slide 4</div>
-            <div class="circles">
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
+        <!-- Professional Section -->
+        <div class="professional-box">
+            <div class="professional-title">Professional</div>
+            <div class="carousel-container" id="professional-carousel">
+                <!-- Professional Carousel Slides -->
+                <div class="carousel-slide" data-index="0">
+                    <h3>Graduate Project Management</h3>
+                    <p>An aspiring Graduate Project Manager completed MSc recently from Loughborough University in 2024, with previous experience as a Product Manager for a design & construction community-based platform.</p>
+                    <p>I have knowledge of project management principles and research experience in relating time performance to the risks evaluated due to the unique nature of projects.</p>
+                </div>
+                <div class="carousel-slide" data-index="1">
+                    <h3>Product Design Manager</h3>
+                    <p>GlazTower Private Limited | Apr 2021- Mar 2023</p>
+                    <p>Tasked with developing and managing a digital platform for AEC professionals requiring seamless integration of design and collaboration features to organize the AEC industry in India.</p>
+                    <ul>
+                        <li>Led cloud-based project development utilizing research and stakeholder analysis across AEC and client sectors</li>
+                        <li>Aided in developing mobile and web platforms through Figma and Adobe Suite</li>
+                        <li>Delivered a cloud-native platform connecting AEC professionals and potential clients, reaching 200+ users and 3000+ followers</li>
+                    </ul>
+                </div>
+                <div class="carousel-slide" data-index="2">
+                    <h3>Junior Interior Designer</h3>
+                    <p>Formnorm Design and Build | Sep 2019- Mar 2020</p>
+                    <p>Designed interiors, MEP & facades for commercial clients, focusing on custom solutions and client satisfaction.</p>
+                    <ul>
+                        <li>Prepared customized scale drawings of building shells, fit-outs, and product designs</li>
+                        <li>Created 3D visualizations and interactive representations for weekly client presentations</li>
+                        <li>Successfully delivered 4 commercial projects, 2 clients agreeing to prospecting further projects</li>
+                    </ul>
+                </div>
+                <div class="carousel-slide" data-index="3">
+                    <h3>Architectural Intern</h3>
+                    <p>Delhi Development Authority (HUPW Sports) | Jun 2019- Sep 2019</p>
+                    <p>Contributed to sports complex design projects in conjunction with architectural regulations by creating architectural designs, scale drawings, 3D representations, and visuals through CAD.</p>
+                    <ul>
+                        <li>Conducted site measurements and documentation</li>
+                        <li>Studied and applied local architectural regulations for stadium design</li>
+                        <li>Contributed to 4 sports complex design projects</li>
+                    </ul>
+                </div>
+                <div class="carousel-slide" data-index="4">
+                    <h3>Volunteering/Social Work</h3>
+                    <p>IKHAT Public Charitable Trust | May 2023- Oct 2023</p>
+                    <p>Social contribution through sports and education programs for underprivileged children.</p>
+                    <ul>
+                        <li>Delivered football and fitness programs, along with art and math classes</li>
+                        <li>Designed and helped develop the organization's website, including UI/UX</li>
+                        <li>Implemented programs successfully benefiting more than 30 children</li>
+                    </ul>
+                </div>
+                <div class="carousel-slide" data-index="5">
+                    <h3>Skills</h3>
+                    <p><strong>Project Management & Analysis Tools:</strong> Asta Powerproject, Microsoft Office Suite, Asite, Adept</p>
+                    <p><strong>Design & BIM Software:</strong> Autodesk Revit, AutoCAD, Navisworks, Google SketchUp, Cloud Compare</p>
+                    <p><strong>Technical Competencies:</strong> Candy Software for estimation, BIM Coordination & Implementation, Technical Documentation</p>
+                    <p><strong>UK Standards:</strong> MMC, DfMA, RIBA Plan of Works, ISO 19650, BS/PAS Standards</p>
+                    <p><strong>Languages:</strong> Hindi (Native), Bengali (Native), English (IELTS 8 band out of 9)</p>
+                </div>
             </div>
         </div>
+        
+        <!-- Projects Section -->
+        <div class="projects-box">
+            <div class="projects-title">Projects</div>
+            <div class="carousel-container" id="projects-carousel">
+                <!-- Projects Carousel Slides -->
+                <div class="carousel-slide" data-index="0">
+                    <h3>Portfolio Overview</h3>
+                    <p>This portfolio contains selected works which includes works of art, architecture, interior and graphic design.</p>
+                    <p>Although I completed my undergraduate degree in architecture in 2020, I have had the opportunity to work in various fields since then. I interned as an architect, then as an interior designer, freelanced as an art teacher and graphic designer. I then collaborated as a product design manager for an AEC-industry based community platform.</p>
+                </div>
+                <div class="carousel-slide" data-index="1">
+                    <h3>GlazTower Platform</h3>
+                    <p>Developed a community-based platform for the Architecture, Engineering, and Construction (AEC) industry in India.</p>
+                    <p>The platform connected AEC professionals with clients and offered features such as portfolio showcase, job listings, and industry resources. Created storyboards, user flows, and UI/UX designs for both mobile and web platforms.</p>
+                </div>
+                <div class="carousel-slide" data-index="2">
+                    <h3>Urban Mobility Solution</h3>
+                    <p>2019</p>
+                    <p>A sustainable transportation system design for modern cities focusing on efficiency and environmental impact.</p>
+                    <p>This project proposed a comprehensive transportation network integrating public transit, bike-sharing, and pedestrian infrastructure to reduce carbon emissions while improving mobility in urban centers.</p>
+                </div>
+                <div class="carousel-slide" data-index="3">
+                    <h3>Sarojini Nagar Urban Design</h3>
+                    <p>Residential project focused on developing multiple housing unit types to accommodate diverse resident needs.</p>
+                    <p>Developed six residential unit types with varying configurations, creating a cohesive urban living environment while maintaining privacy and functionality for each residence.</p>
+                </div>
+                <div class="carousel-slide" data-index="4">
+                    <h3>CR Park Shops Design</h3>
+                    <p>Design competition entry for commercial kiosks and fish market in CR Park, New Delhi.</p>
+                    <p>Created standardized, modular designs for shopping kiosks and a specialized fish market facility that prioritized hygiene, visibility, and efficient space utilization.</p>
+                </div>
+                <div class="carousel-slide" data-index="5">
+                    <h3>Creative Works</h3>
+                    <p>My portfolio includes a variety of creative works including:</p>
+                    <ul>
+                        <li>Bike Fuel Tank Design - Placed top 5 in a national competition</li>
+                        <li>Website and UI/UX design for various clients</li>
+                        <li>Digital illustrations and portrait art</li>
+                        <li>Logo design and branding materials</li>
+                        <li>Architectural renderings and visualizations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carousel Dots - Added outside of section boxes to match exact positions in design -->
+        <!-- Academic dots -->
+        <div class="dot active" id="academic-dot-1" data-target="academic" data-index="0"></div>
+        <div class="dot" id="academic-dot-2" data-target="academic" data-index="1"></div>
+        <div class="dot" id="academic-dot-3" data-target="academic" data-index="2"></div>
+
+        <!-- Professional dots -->
+        <div class="dot active" id="professional-dot-1" data-target="professional" data-index="0"></div>
+        <div class="dot" id="professional-dot-2" data-target="professional" data-index="1"></div>
+        <div class="dot" id="professional-dot-3" data-target="professional" data-index="2"></div>
+        <div class="dot" id="professional-dot-4" data-target="professional" data-index="3"></div>
+        <div class="dot" id="professional-dot-5" data-target="professional" data-index="4"></div>
+        <div class="dot" id="professional-dot-6" data-target="professional" data-index="5"></div>
+
+        <!-- Projects dots -->
+        <div class="dot active" id="projects-dot-1" data-target="projects" data-index="0"></div>
+        <div class="dot" id="projects-dot-2" data-target="projects" data-index="1"></div>
+        <div class="dot" id="projects-dot-3" data-target="projects" data-index="2"></div>
+        <div class="dot" id="projects-dot-4" data-target="projects" data-index="3"></div>
+        <div class="dot" id="projects-dot-5" data-target="projects" data-index="4"></div>
+        <div class="dot" id="projects-dot-6" data-target="projects" data-index="5"></div>
     </div>
-    
-    <!-- Footer -->
-    <div class="footer">
-        Towards footer nav bar
-    </div>
+
+    <script>
+        // Introduction link functionality
+        document.getElementById('introduce-link').addEventListener('click', function() {
+            const introBox = document.querySelector('.intro-box');
+            const introText = document.querySelector('.intro-text');
+            
+            // Check if bio is already displayed
+            const bioElem = document.getElementById('bio-text');
+            
+            if (bioElem) {
+                // Remove bio if already displayed
+                bioElem.remove();
+                introText.style.display = 'block';
+            } else {
+                // Hide intro text and show bio
+                introText.style.display = 'none';
+                
+                // Create bio text
+                const bioText = document.createElement('div');
+                bioText.id = 'bio-text';
+                
+                bioText.innerHTML = `
+                    <p>I'm Prashanto Roy, a graduate in Construction Project Management from Loughborough University (2024), with a Bachelor's in Architecture from India (2020).</p>
+                    <p style="margin-top: 10px">My experience spans project management, product design, and architectural design, with a focus on sustainable solutions.</p>
+                    <p style="margin-top: 10px">Contact: prashantor.y@gmail.com | +44(0)7709585425</p>
+                    <p style="margin-top: 15px; text-align: right;"><a class="intro-link" id="back-link">← Back</a></p>
+                `;
+                
+                introBox.appendChild(bioText);
+                
+                // Add back button functionality
+                document.getElementById('back-link').addEventListener('click', function() {
+                    bioText.remove();
+                    introText.style.display = 'block';
+                });
+            }
+        });
+
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up carousel dot interaction
+            const dots = document.querySelectorAll('.dot');
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    const index = this.getAttribute('data-index');
+                    
+                    // Get all slides for this carousel
+                    const slides = document.querySelectorAll(`#${target}-carousel .carousel-slide`);
+                    
+                    // Get all dots for this carousel
+                    const targetDots = document.querySelectorAll(`.dot[data-target="${target}"]`);
+                    
+                    // Deactivate all slides and dots
+                    slides.forEach(slide => slide.classList.remove('active'));
+                    targetDots.forEach(dot => dot.classList.remove('active'));
+                    
+                    // Activate selected slide and dot
+                    slides[index].classList.add('active');
+                    this.classList.add('active');
+                });
+            });
+            
+            // Auto-rotate carousels
+            const carousels = ['academic', 'professional', 'projects'];
+            
+            carousels.forEach(carousel => {
+                let currentIndex = 0;
+                const slides = document.querySelectorAll(`#${carousel}-carousel .carousel-slide`);
+                const dots = document.querySelectorAll(`.dot[data-target="${carousel}"]`);
+                
+                if (slides.length > 0) {
+                    setInterval(() => {
+                        // Increment index
+                        currentIndex = (currentIndex + 1) % slides.length;
+                        
+                        // Deactivate all slides and dots
+                        slides.forEach(slide => slide.classList.remove('active'));
+                        dots.forEach(dot => dot.classList.remove('active'));
+                        
+                        // Activate next slide and dot
+                        slides[currentIndex].classList.add('active');
+                        dots[currentIndex].classList.add('active');
+                    }, 7000); // Change every 7 seconds
+                }
+            });
+            
+            // Navigation handling
+            document.querySelectorAll('nav a, .nav-about, .nav-works, .nav-connect').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('href').substring(1);
+                    
+                    if (section === 'connect') {
+                        alert(`Contact: prashantor.y@gmail.com | +44(0)7709585425`);
+                    } else {
+                        alert(`Navigating to ${section} section - This would load the ${section} page or section in a full implementation.`);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
