@@ -1,124 +1,183 @@
 /**
- * Prashanto Roy Portfolio - Exact Layout Implementation
- * Handles circle hover effects and navigation
+ * Prashanto Roy Portfolio - Exact Figma Implementation
+ * Handles interactive elements and responsive scaling
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Select all circles
+    // Select all interactive elements
     const circles = document.querySelectorAll('.circle');
+    const sectionBoxes = document.querySelectorAll('.section-box');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    const viewport = document.getElementById('viewport');
     
-    // Add hover effects to circles
-    circles.forEach(circle => {
-        // Store original dimensions
-        const originalWidth = circle.offsetWidth;
-        const originalHeight = circle.offsetHeight;
-        
-        // Add hover event
-        circle.addEventListener('mouseenter', function() {
-            // Scale up the circle
-            this.style.transform = 'scale(1.2)';
-            this.style.transition = 'transform 0.3s ease';
-            this.style.zIndex = '10';
-            this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
-            
-            // Reset other circles in the same container
-            const parent = this.parentElement;
-            const siblings = parent.querySelectorAll('.circle');
-            siblings.forEach(sibling => {
-                if (sibling !== this) {
+    /**
+     * Set up circle hover interactions
+     * When hovering over a circle, it expands while others in the same container return to normal size
+     */
+    function setupCircleInteractions() {
+        circles.forEach(circle => {
+            // Add mouseenter event
+            circle.addEventListener('mouseenter', function() {
+                // Reset all circles in this container
+                const container = this.parentElement;
+                const siblingCircles = container.querySelectorAll('.circle');
+                
+                siblingCircles.forEach(sibling => {
                     sibling.style.transform = 'scale(1)';
                     sibling.style.zIndex = '1';
                     sibling.style.boxShadow = 'none';
-                }
+                });
+                
+                // Expand this circle
+                this.style.transform = 'scale(1.2)';
+                this.style.zIndex = '10';
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.15)';
+            });
+            
+            // Add click event for navigation
+            circle.addEventListener('click', function() {
+                const sectionId = this.closest('.section-box').id;
+                const index = Array.from(this.parentElement.children).indexOf(this);
+                handleNavigation(sectionId, index);
             });
         });
         
-        // Reset on mouse leave from container
-        circle.parentElement.addEventListener('mouseleave', function() {
-            const circles = this.querySelectorAll('.circle');
-            circles.forEach(circle => {
-                circle.style.transform = 'scale(1)';
-                circle.style.zIndex = '1';
-                circle.style.boxShadow = 'none';
+        // Reset circles when mouse leaves container
+        document.querySelectorAll('.circle-container').forEach(container => {
+            container.addEventListener('mouseleave', function() {
+                const circles = this.querySelectorAll('.circle');
+                circles.forEach(circle => {
+                    circle.style.transform = 'scale(1)';
+                    circle.style.zIndex = '1';
+                    circle.style.boxShadow = 'none';
+                });
             });
-        });
-        
-        // Make circles clickable
-        circle.addEventListener('click', function() {
-            // Get container class to determine section
-            const containerClass = this.parentElement.classList[1];
-            const section = containerClass.split('-')[0]; // 'academic', 'professional', or 'projects'
-            
-            // Get index of this circle among siblings
-            const siblings = [...this.parentElement.children];
-            const index = siblings.indexOf(this);
-            
-            console.log(`Navigating to ${section} section, item ${index}`);
-            // Here you would add navigation logic
-        });
-    });
-    
-    // Make box sections clickable
-    const boxes = document.querySelectorAll('.intro-box, .academic-box, .professional-box, .projects-box');
-    boxes.forEach(box => {
-        box.addEventListener('click', function(e) {
-            // Only trigger if click wasn't on a circle
-            if (!e.target.classList.contains('circle')) {
-                const section = this.classList[0].split('-')[0];
-                console.log(`Navigating to ${section} section`);
-                // Here you would add navigation logic
-            }
-        });
-        
-        // Add hover effect
-        box.addEventListener('mouseenter', function() {
-            this.style.transition = 'transform 0.3s ease';
-            this.style.transform = 'translateY(-5px)';
-            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
-        });
-        
-        box.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = 'none';
-        });
-    });
-    
-    // Navigation links
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const section = this.classList[1];
-            console.log(`Navigating to ${section} section`);
-            // Here you would add navigation logic
-        });
-    });
-    
-    // Scroll indicator
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (scrollIndicator) {
-        scrollIndicator.addEventListener('click', function() {
-            console.log('Scroll indicator clicked');
-            // Here you would add scrolling logic
-        });
-        
-        // Add hover effect
-        scrollIndicator.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.1)';
-            this.style.transition = 'transform 0.3s ease';
-        });
-        
-        scrollIndicator.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
         });
     }
     
-    // Simulate browser actions (for demo purposes)
-    const browserButtons = document.querySelectorAll('.nav-button, .close-tab, .new-tab, .action-button');
-    browserButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            console.log('Browser action clicked');
-            // Here you would add browser action logic
+    /**
+     * Set up section box interactions
+     * When clicking on a box, navigate to the corresponding section
+     */
+    function setupSectionBoxInteractions() {
+        sectionBoxes.forEach(box => {
+            box.addEventListener('click', function(e) {
+                // Only trigger if the click wasn't directly on a circle
+                if (!e.target.classList.contains('circle')) {
+                    const sectionId = this.id;
+                    handleNavigation(sectionId);
+                }
+            });
+            
+            // Ensure boxes are keyboard navigable
+            box.setAttribute('tabindex', '0');
+            box.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const sectionId = this.id;
+                    handleNavigation(sectionId);
+                }
+            });
         });
-    });
+    }
+    
+    /**
+     * Set up navigation link interactions
+     * When clicking a nav link, navigate to the corresponding section
+     */
+    function setupNavLinkInteractions() {
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                handleNavigation(targetId);
+            });
+        });
+    }
+    
+    /**
+     * Handle scroll indicator interaction
+     */
+    function setupScrollIndicator() {
+        if (scrollIndicator) {
+            scrollIndicator.addEventListener('click', function() {
+                // Smooth scroll logic would go here
+                console.log('Scroll indicator clicked');
+            });
+        }
+    }
+    
+    /**
+     * Handle navigation to different sections
+     * @param {string} sectionId - ID of the section to navigate to
+     * @param {number} [itemIndex] - Optional index of a specific item within the section
+     */
+    function handleNavigation(sectionId, itemIndex) {
+        console.log(`Navigating to ${sectionId}${itemIndex !== undefined ? ', item ' + itemIndex : ''}`);
+        
+        // Create transition effect
+        const transition = document.createElement('div');
+        transition.style.position = 'fixed';
+        transition.style.top = '0';
+        transition.style.left = '0';
+        transition.style.width = '100%';
+        transition.style.height = '100%';
+        transition.style.backgroundColor = 'white';
+        transition.style.zIndex = '1000';
+        transition.style.opacity = '0';
+        transition.style.transition = 'opacity 0.5s ease';
+        
+        document.body.appendChild(transition);
+        
+        // Trigger animation
+        requestAnimationFrame(() => {
+            transition.style.opacity = '1';
+            
+            // After transition completes, you would:
+            // 1. Change the URL (using history API)
+            // 2. Load the new page content
+            
+            setTimeout(() => {
+                // For demo purposes, just remove the transition
+                transition.style.opacity = '0';
+                setTimeout(() => {
+                    transition.remove();
+                }, 500);
+            }, 500);
+        });
+    }
+    
+    /**
+     * Handle responsive scaling
+     * Ensures the layout maintains proportions on different screen sizes
+     */
+    function setupResponsiveScaling() {
+        function updateScale() {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const scaleX = windowWidth / 1728;
+            const scaleY = windowHeight / 1117;
+            const scale = Math.min(scaleX, scaleY);
+            
+            viewport.style.transform = `scale(${scale})`;
+            viewport.style.transformOrigin = 'top left';
+            
+            // Adjust body dimensions to prevent scrolling
+            document.body.style.width = `${1728 * scale}px`;
+            document.body.style.height = `${1117 * scale}px`;
+        }
+        
+        // Initial scaling
+        updateScale();
+        
+        // Update on resize
+        window.addEventListener('resize', updateScale);
+    }
+    
+    // Initialize all interactions
+    setupCircleInteractions();
+    setupSectionBoxInteractions();
+    setupNavLinkInteractions();
+    setupScrollIndicator();
+    setupResponsiveScaling();
 });
