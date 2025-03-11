@@ -11,20 +11,15 @@
 </head>
 <body>
     <div id="viewport">
-        <!-- Browser header - simulated -->
-        <div class="browser-header">
-            <div class="tab-bar"></div>
-            <div class="url-bar">
-                <input type="text" value="prashantoroy.com" readonly>
-            </div>
-        </div>
-        
-        <!-- Main content area -->
         <div class="content-area">
             <!-- Logo and profile section -->
             <div class="logo-section">
-                <div class="profile-image"></div>
-                <div class="logo-image"></div>
+                <a href="#about" class="profile-image-link">
+                    <div class="profile-image"></div>
+                </a>
+                <a href="#home" class="logo-image-link">
+                    <div class="logo-image"></div>
+                </a>
             </div>
             
             <!-- Name header -->
@@ -37,7 +32,7 @@
                 <a href="#connect" class="nav-link">Connect</a>
             </div>
             
-            <!-- Introduction Box -->
+            <!-- Introduction Box (Speech Bubble) -->
             <div class="intro-box section-box" id="intro">
                 <div class="intro-text">
                     <span>Kindly allow me </span>
@@ -49,39 +44,64 @@
             <!-- Academic Box -->
             <div class="academic-box section-box" id="academic">
                 <div class="section-title">Academic</div>
-                <div class="circle-container">
-                    <div class="circle small"></div>
-                    <div class="circle medium"></div>
-                    <div class="circle small"></div>
+                <div class="carousel-container">
+                    <div class="carousel-slides">
+                        <!-- Placeholder for carousel slides -->
+                        <div class="carousel-slide active">Slide 1</div>
+                        <div class="carousel-slide">Slide 2</div>
+                        <div class="carousel-slide">Slide 3</div>
+                    </div>
+                    <div class="circle-container">
+                        <button class="circle active" data-slide="0"></button>
+                        <button class="circle" data-slide="1"></button>
+                        <button class="circle" data-slide="2"></button>
+                    </div>
                 </div>
             </div>
             
             <!-- Professional Box -->
             <div class="professional-box section-box" id="professional">
                 <div class="section-title">Professional</div>
-                <div class="circle-container">
-                    <div class="circle smallest"></div>
-                    <div class="circle small"></div>
-                    <div class="circle medium"></div>
-                    <div class="circle small"></div>
-                    <div class="circle smallest"></div>
+                <div class="carousel-container">
+                    <div class="carousel-slides">
+                        <!-- Placeholder for carousel slides -->
+                        <div class="carousel-slide active">Slide 1</div>
+                        <div class="carousel-slide">Slide 2</div>
+                        <div class="carousel-slide">Slide 3</div>
+                        <div class="carousel-slide">Slide 4</div>
+                        <div class="carousel-slide">Slide 5</div>
+                    </div>
+                    <div class="circle-container">
+                        <button class="circle" data-slide="0"></button>
+                        <button class="circle" data-slide="1"></button>
+                        <button class="circle active" data-slide="2"></button>
+                        <button class="circle" data-slide="3"></button>
+                        <button class="circle" data-slide="4"></button>
+                    </div>
                 </div>
             </div>
             
             <!-- Projects Box -->
             <div class="projects-box section-box" id="projects">
                 <div class="section-title">Projects</div>
-                <div class="circle-container">
-                    <div class="circle smallest"></div>
-                    <div class="circle small"></div>
-                    <div class="circle large"></div>
-                    <div class="circle small"></div>
-                    <div class="circle smallest"></div>
+                <div class="carousel-container">
+                    <div class="carousel-slides">
+                        <!-- Placeholder for carousel slides -->
+                        <div class="carousel-slide active">Slide 1</div>
+                        <div class="carousel-slide">Slide 2</div>
+                        <div class="carousel-slide">Slide 3</div>
+                        <div class="carousel-slide">Slide 4</div>
+                        <div class="carousel-slide">Slide 5</div>
+                    </div>
+                    <div class="circle-container">
+                        <button class="circle" data-slide="0"></button>
+                        <button class="circle" data-slide="1"></button>
+                        <button class="circle active" data-slide="2"></button>
+                        <button class="circle" data-slide="3"></button>
+                        <button class="circle" data-slide="4"></button>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Scroll indicator -->
-            <div class="scroll-indicator"></div>
         </div>
     </div>
     
