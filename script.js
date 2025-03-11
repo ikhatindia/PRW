@@ -1,272 +1,124 @@
 /**
- * Prashanto Roy Portfolio JavaScript
- * Controls interactive elements, animations, and navigation
+ * Prashanto Roy Portfolio - Exact Layout Implementation
+ * Handles circle hover effects and navigation
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Elements
-    const sections = document.querySelectorAll('.button-section');
+    // Select all circles
     const circles = document.querySelectorAll('.circle');
+    
+    // Add hover effects to circles
+    circles.forEach(circle => {
+        // Store original dimensions
+        const originalWidth = circle.offsetWidth;
+        const originalHeight = circle.offsetHeight;
+        
+        // Add hover event
+        circle.addEventListener('mouseenter', function() {
+            // Scale up the circle
+            this.style.transform = 'scale(1.2)';
+            this.style.transition = 'transform 0.3s ease';
+            this.style.zIndex = '10';
+            this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+            
+            // Reset other circles in the same container
+            const parent = this.parentElement;
+            const siblings = parent.querySelectorAll('.circle');
+            siblings.forEach(sibling => {
+                if (sibling !== this) {
+                    sibling.style.transform = 'scale(1)';
+                    sibling.style.zIndex = '1';
+                    sibling.style.boxShadow = 'none';
+                }
+            });
+        });
+        
+        // Reset on mouse leave from container
+        circle.parentElement.addEventListener('mouseleave', function() {
+            const circles = this.querySelectorAll('.circle');
+            circles.forEach(circle => {
+                circle.style.transform = 'scale(1)';
+                circle.style.zIndex = '1';
+                circle.style.boxShadow = 'none';
+            });
+        });
+        
+        // Make circles clickable
+        circle.addEventListener('click', function() {
+            // Get container class to determine section
+            const containerClass = this.parentElement.classList[1];
+            const section = containerClass.split('-')[0]; // 'academic', 'professional', or 'projects'
+            
+            // Get index of this circle among siblings
+            const siblings = [...this.parentElement.children];
+            const index = siblings.indexOf(this);
+            
+            console.log(`Navigating to ${section} section, item ${index}`);
+            // Here you would add navigation logic
+        });
+    });
+    
+    // Make box sections clickable
+    const boxes = document.querySelectorAll('.intro-box, .academic-box, .professional-box, .projects-box');
+    boxes.forEach(box => {
+        box.addEventListener('click', function(e) {
+            // Only trigger if click wasn't on a circle
+            if (!e.target.classList.contains('circle')) {
+                const section = this.classList[0].split('-')[0];
+                console.log(`Navigating to ${section} section`);
+                // Here you would add navigation logic
+            }
+        });
+        
+        // Add hover effect
+        box.addEventListener('mouseenter', function() {
+            this.style.transition = 'transform 0.3s ease';
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+        });
+        
+        box.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+        });
+    });
+    
+    // Navigation links
     const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = this.classList[1];
+            console.log(`Navigating to ${section} section`);
+            // Here you would add navigation logic
+        });
+    });
+    
+    // Scroll indicator
     const scrollIndicator = document.querySelector('.scroll-indicator');
-    
-    /**
-     * Initialize all page animations and interactions
-     */
-    function init() {
-        // Apply entrance animations with staggered delay
-        sections.forEach((section, index) => {
-            setTimeout(() => {
-                section.classList.add('animate-in');
-            }, 100 * index);
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+            console.log('Scroll indicator clicked');
+            // Here you would add scrolling logic
         });
         
-        // Set up interactive behaviors
-        setupCircleInteractions();
-        setupSectionInteractions();
-        setupNavigationInteractions();
-        setupScrollIndicator();
+        // Add hover effect
+        scrollIndicator.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.1)';
+            this.style.transition = 'transform 0.3s ease';
+        });
         
-        // Set first circle in each section as active initially
-        document.querySelectorAll('.circle-nav').forEach(nav => {
-            if (nav.children.length > 0) {
-                nav.children[0].classList.add('active');
-            }
+        scrollIndicator.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
         });
     }
     
-    /**
-     * Sets up circle button interactions
-     */
-    function setupCircleInteractions() {
-        circles.forEach(circle => {
-            // Mouse hover effects
-            circle.addEventListener('mouseenter', () => {
-                // Deactivate other circles in same navigation
-                const siblings = circle.parentElement.querySelectorAll('.circle');
-                siblings.forEach(sibling => {
-                    sibling.classList.remove('active');
-                });
-                
-                // Activate this circle
-                circle.classList.add('active');
-                
-                // Trigger content change based on circle index
-                const index = Array.from(circle.parentElement.children).indexOf(circle);
-                const sectionId = circle.closest('.button-section').id;
-                changeContent(sectionId, index);
-            });
-            
-            // Click behavior (for loading related page or content)
-            circle.addEventListener('click', () => {
-                // Get section ID and circle index
-                const sectionId = circle.closest('.button-section').id;
-                const index = Array.from(circle.parentElement.children).indexOf(circle);
-                
-                // Navigate to the specific content
-                navigateToContent(sectionId, index);
-            });
+    // Simulate browser actions (for demo purposes)
+    const browserButtons = document.querySelectorAll('.nav-button, .close-tab, .new-tab, .action-button');
+    browserButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            console.log('Browser action clicked');
+            // Here you would add browser action logic
         });
-    }
-    
-    /**
-     * Sets up interactions for main section boxes
-     */
-    function setupSectionInteractions() {
-        sections.forEach(section => {
-            // Click behavior (navigate to section page)
-            section.addEventListener('click', (event) => {
-                // Only trigger if the click wasn't on a circle
-                if (!event.target.classList.contains('circle')) {
-                    navigateToSection(section.id);
-                }
-            });
-            
-            // Add focus states for keyboard navigation
-            section.setAttribute('tabindex', '0');
-            section.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
-                    navigateToSection(section.id);
-                }
-            });
-        });
-    }
-    
-    /**
-     * Sets up navigation link interactions
-     */
-    function setupNavigationInteractions() {
-        navLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                
-                // Get the target section from the href
-                const targetId = link.getAttribute('href').substring(1);
-                navigateToSection(targetId);
-            });
-        });
-    }
-    
-    /**
-     * Sets up scroll indicator behavior
-     */
-    function setupScrollIndicator() {
-        if (scrollIndicator) {
-            scrollIndicator.addEventListener('click', () => {
-                window.scrollTo({
-                    top: window.innerHeight,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Hide/show based on scroll position
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 100) {
-                    scrollIndicator.style.opacity = '0';
-                } else {
-                    scrollIndicator.style.opacity = '1';
-                }
-            });
-        }
-    }
-    
-    /**
-     * Handles content changes when hovering over circles
-     * @param {string} sectionId - ID of the section
-     * @param {number} index - Index of the content to show
-     */
-    function changeContent(sectionId, index) {
-        // This would update content within the section based on the selected circle
-        console.log(`Changing ${sectionId} content to item ${index}`);
-        
-        // Here you would add logic to:
-        // 1. Load or display the specific content associated with this index
-        // 2. Update any visual indicators
-        
-        // For example, if you had content divs:
-        // const contentItems = document.querySelectorAll(`#${sectionId}-content .content-item`);
-        // contentItems.forEach(item => item.classList.remove('active'));
-        // contentItems[index]?.classList.add('active');
-    }
-    
-    /**
-     * Navigate to a specific piece of content within a section
-     * @param {string} sectionId - ID of the section
-     * @param {number} index - Index of the content to navigate to
-     */
-    function navigateToContent(sectionId, index) {
-        console.log(`Navigating to ${sectionId} content item ${index}`);
-        
-        // Create page transition effect
-        const transition = createTransitionElement();
-        
-        // After transition completes, you would:
-        // 1. Change the URL (using history API)
-        // 2. Load the new page content
-        
-        setTimeout(() => {
-            // Simulate page change (replace with actual navigation)
-            // window.location.href = `/${sectionId}/${index}`;
-            
-            // For demo purposes, just remove the transition
-            transition.classList.add('exit');
-            setTimeout(() => {
-                transition.remove();
-            }, 500);
-        }, 500);
-    }
-    
-    /**
-     * Navigate to a section page
-     * @param {string} sectionId - ID of the section to navigate to
-     */
-    function navigateToSection(sectionId) {
-        console.log(`Navigating to section: ${sectionId}`);
-        
-        // Create page transition effect
-        const transition = createTransitionElement();
-        
-        // After transition completes, navigate to the section page
-        setTimeout(() => {
-            // Simulate page change (replace with actual navigation)
-            // window.location.href = `/${sectionId}`;
-            
-            // For demo purposes, just remove the transition
-            transition.classList.add('exit');
-            setTimeout(() => {
-                transition.remove();
-            }, 500);
-        }, 500);
-    }
-    
-    /**
-     * Creates a transition element for page changes
-     * @returns {Element} The transition element
-     */
-    function createTransitionElement() {
-        const transition = document.createElement('div');
-        transition.classList.add('page-transition');
-        document.body.appendChild(transition);
-        
-        // Trigger animation
-        setTimeout(() => {
-            transition.classList.add('active');
-        }, 10);
-        
-        return transition;
-    }
-    
-    /**
-     * Load content for sections (simulated)
-     * In a real implementation, this might fetch content from an API or load HTML partials
-     */
-    function loadContentForSections() {
-        // This is a placeholder for actual content loading
-        console.log('Loading section content');
-        
-        // Example of how you might populate images for circles:
-        // circles.forEach((circle, index) => {
-        //     circle.style.backgroundImage = `url('/images/thumbnail-${index}.jpg')`;
-        // });
-    }
-    
-    // Add responsive behavior for window resizing
-    function handleResize() {
-        // This function could handle special cases for different screen sizes
-        // For now, our CSS handles most of the responsive behavior
-    }
-    
-    // Add resize listener
-    window.addEventListener('resize', handleResize);
-    
-    // Initialize keyboard navigation for accessibility
-    function setupKeyboardNavigation() {
-        document.addEventListener('keydown', (event) => {
-            // Tab key is handled natively for focusing elements
-            
-            // Arrow keys for navigating between sections when focused
-            if (document.activeElement.classList.contains('button-section')) {
-                const section = document.activeElement;
-                const circleNav = section.querySelector('.circle-nav');
-                
-                if (circleNav) {
-                    const circles = circleNav.querySelectorAll('.circle');
-                    const activeIndex = Array.from(circles).findIndex(circle => 
-                        circle.classList.contains('active'));
-                    
-                    if (event.key === 'ArrowLeft' && activeIndex > 0) {
-                        circles[activeIndex - 1].dispatchEvent(new Event('mouseenter'));
-                    } else if (event.key === 'ArrowRight' && activeIndex < circles.length - 1) {
-                        circles[activeIndex + 1].dispatchEvent(new Event('mouseenter'));
-                    }
-                }
-            }
-        });
-    }
-    
-    // Call initialization functions
-    init();
-    loadContentForSections();
-    setupKeyboardNavigation();
-    handleResize();
+    });
 });
