@@ -378,4 +378,18 @@ html, body {
         padding-top: 100px;
         min-height: 200px;
     }
+
+    @media (max-width: 1660px) {
+    body {
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    
+    .content-wrapper {
+        transform: scale(calc(100vw / 1660));
+        transform-origin: center top;
+    }
 }
