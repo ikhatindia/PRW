@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-link');
     const profileImage = document.querySelector('.profile-image');
     const logoImage = document.querySelector('.logo-image');
-    const viewport = document.getElementById('viewport');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
     
     /**
      * Set up circle indicator interactions
@@ -149,6 +149,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
+     * Handle scroll indicator interaction
+     */
+    function setupScrollIndicator() {
+        if (scrollIndicator) {
+            scrollIndicator.addEventListener('click', function() {
+                // Smooth scroll to footer
+                const footer = document.querySelector('.footer-nav');
+                if (footer) {
+                    footer.scrollIntoView({behavior: 'smooth'});
+                }
+            });
+        }
+    }
+    
+    /**
      * Handle navigation to different sections
      * @param {string} sectionId - ID of the section to navigate to
      */
@@ -185,40 +200,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Handle responsive scaling
-     * Ensures the layout maintains proportions on different screen sizes
+     * Handle responsive behavior on mobile devices
      */
-    function setupResponsiveScaling() {
-        function updateScale() {
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            const scaleX = windowWidth / 1728;
-            const scaleY = windowHeight / 1117;
-            const scale = Math.min(scaleX, scaleY);
-            
-            viewport.style.transform = `scale(${scale})`;
-            viewport.style.transformOrigin = 'top left';
-            
-            // Center the viewport
-            const scaledWidth = 1728 * scale;
-            const scaledHeight = 1117 * scale;
-            const leftPosition = (windowWidth - scaledWidth) / 2;
-            const topPosition = (windowHeight - scaledHeight) / 2;
-            
-            if (leftPosition > 0) {
-                viewport.style.left = `${leftPosition}px`;
-            }
-            
-            if (topPosition > 0) {
-                viewport.style.top = `${topPosition}px`;
+    function setupMobileResponsiveness() {
+        function checkMobile() {
+            if (window.innerWidth <= 768) {
+                // On mobile, make the layout scrollable
+                document.body.style.overflow = 'auto';
+                
+                // Adjust carousel containers for touch
+                document.querySelectorAll('.carousel-container').forEach(container => {
+                    container.style.minHeight = '250px';
+                });
+            } else {
+                // On desktop, use the original layout
+                document.body.style.overflow = 'hidden';
             }
         }
         
-        // Initial scaling
-        updateScale();
+        // Check on load
+        checkMobile();
         
-        // Update on resize
-        window.addEventListener('resize', updateScale);
+        // Check on resize
+        window.addEventListener('resize', checkMobile);
     }
     
     // Initialize all functionality
@@ -227,5 +231,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setupNavLinkInteractions();
     setupImageInteractions();
     setupCarousels();
-    setupResponsiveScaling();
+    setupScrollIndicator();
+    setupMobileResponsiveness();
 });
