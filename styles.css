@@ -4,12 +4,8 @@
     --section-bg: #EEEEEE;
     --black: #000000;
     --highlight: #FF2F2F;
-    --circle-color: #CFCDCD;
+    --circle-color: #B3B3B3;
     --transition: all 0.3s ease;
-    
-    /* Golden ratio dimensions */
-    --content-width: 1528px;
-    --content-height: 944px;
 }
 
 /* Base reset */
@@ -24,41 +20,41 @@ html, body {
     height: 100%;
     font-family: 'EB Garamond', serif;
     font-size: 16px;
-    overflow: hidden;
     background-color: var(--primary-bg);
+    overflow-x: hidden;
 }
 
-/* Viewport container with exact dimensions */
-#viewport {
-    width: 1728px;
-    height: 1117px;
+/* Main content wrapper */
+.content-wrapper {
     position: relative;
+    width: 100%;
+    max-width: 1660px;
     margin: 0 auto;
-    overflow: hidden;
-    transform-origin: top left;
-}
-
-/* Main content area */
-.content-area {
-    width: var(--content-width);
-    height: var(--content-height);
-    margin: 70px auto 0;
-    position: relative;
+    padding: 20px;
+    min-height: 100vh;
 }
 
 /* Logo and profile section */
 .logo-section {
     position: absolute;
-    top: 30px;
-    left: 0;
+    top: 60px;
+    left: 79px;
     display: flex;
     gap: 10px;
 }
 
-.profile-image, .logo-image {
-    width: 85px;
-    height: 85px;
-    background-color: #ccc; /* Placeholder color */
+.profile-image {
+    width: 76px;
+    height: 96px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.logo-image {
+    width: 94px;
+    height: 96px;
+    object-fit: contain;
     cursor: pointer;
     transition: var(--transition);
 }
@@ -71,8 +67,8 @@ html, body {
 /* Name styling */
 .name {
     position: absolute;
-    top: 80px;
-    left: 226px;
+    top: 106px;
+    left: 312px;
     font-size: 55px;
     font-weight: 700;
     color: var(--black);
@@ -81,8 +77,8 @@ html, body {
 /* Navigation links */
 .navigation-links {
     position: absolute;
-    top: 108px;
-    right: 0;
+    top: 129px;
+    right: 79px;
     display: flex;
     gap: 30px;
 }
@@ -128,48 +124,21 @@ html, body {
     font-size: 45px;
     font-weight: 400;
     color: var(--black);
+    position: absolute;
 }
 
-/* Intro box specific styling (speech bubble) */
+/* Intro box specific styling */
 .intro-box {
-    top: 220px;
-    left: 85px;
-    width: 196px;
-    height: 175px;
-    border: 2px solid var(--black);
+    top: 190px;
+    left: 79px;
+    width: 202px;
+    height: 214px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
     text-align: center;
-    border-radius: 15px;
-    position: relative;
-}
-
-.intro-box:after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 20px;
-    border-width: 15px 15px 0;
-    border-style: solid;
-    border-color: var(--section-bg) transparent;
-    display: block;
-    width: 0;
-    z-index: 1;
-}
-
-.intro-box:before {
-    content: '';
-    position: absolute;
-    bottom: -18px;
-    left: 19px;
-    border-width: 16px 16px 0;
-    border-style: solid;
-    border-color: var(--black) transparent;
-    display: block;
-    width: 0;
-    z-index: 0;
+    border-radius: 30px;
 }
 
 .intro-text {
@@ -183,43 +152,41 @@ html, body {
 
 /* Academic box specific styling */
 .academic-box {
-    top: 220px;
-    left: 300px;
-    width: 344px;
-    height: 206px;
+    top: 190px;
+    left: 312px;
+    width: 356px;
+    height: 214px;
 }
 
 .academic-box .section-title {
-    position: absolute;
-    top: 15px;
+    top: 16px;
     right: 15px;
 }
 
 /* Professional box specific styling */
 .professional-box {
-    top: 450px;
-    left: 85px;
-    width: 570px;
-    height: 330px;
+    top: 441px;
+    left: 79px;
+    width: 589px;
+    height: 571px;
 }
 
 .professional-box .section-title {
-    position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 13px;
+    left: 19px;
 }
 
 /* Projects box specific styling */
 .projects-box {
-    top: 220px;
-    right: 0;
-    width: 805px;
-    height: 560px;
+    top: 190px;
+    right: 79px;
+    width: 951px;
+    height: 822px;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), var(--section-bg);
 }
 
 .projects-box .section-title {
-    position: absolute;
-    top: 15px;
+    top: 16px;
     right: 15px;
 }
 
@@ -229,7 +196,7 @@ html, body {
     height: 100%;
     position: relative;
     padding-top: 70px; /* Space for title */
-    padding-bottom: 70px; /* Space for circles */
+    padding-bottom: 50px; /* Space for circles */
 }
 
 .carousel-slides {
@@ -270,8 +237,8 @@ html, body {
 }
 
 .circle {
-    width: 40px;
-    height: 40px;
+    width: 27px;
+    height: 26px;
     border-radius: 50%;
     background-color: var(--circle-color);
     border: none;
@@ -279,53 +246,138 @@ html, body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.circle.active {
-    transform: scale(1.2);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-}
-
 .circle:hover {
     transform: scale(1.2);
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
-/* Ensure all circles in each container are the same size initially */
-.academic-box .circle-container .circle {
-    width: 40px;
-    height: 40px;
+.circle.active {
+    transform: scale(1.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
-.professional-box .circle-container .circle {
-    width: 40px;
-    height: 40px;
+/* Scroll indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 56px;
+    left: 21px;
+    width: 32px;
+    height: 14px;
+    border-radius: 8px;
+    outline: 10px solid white;
+    outline-offset: -5px;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
-.projects-box .circle-container .circle {
-    width: 40px;
-    height: 40px;
+.scroll-indicator:hover {
+    transform: scale(1.2);
 }
 
-/* Responsive scaling */
-@media (max-width: 1728px) {
-    #viewport {
-        transform: scale(calc(100vw / 1728));
-        width: 1728px;
-        height: 1117px;
+/* Footer nav bar */
+.footer-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 81px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* Responsive styles */
+@media (max-width: 1660px) {
+    .content-wrapper {
+        transform: scale(calc(100vw / 1660));
+        transform-origin: top left;
+        width: 1660px;
+        height: 100vh;
     }
 }
 
-@media (max-height: 1117px) {
-    #viewport {
-        transform: scale(calc(100vh / 1117));
-        width: 1728px;
-        height: 1117px;
+@media (max-width: 768px) {
+    .content-wrapper {
+        transform: none;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+    }
+    
+    .logo-section, .name, .navigation-links, 
+    .intro-box, .academic-box, .professional-box, .projects-box,
+    .scroll-indicator, .footer-nav {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin: 20px auto;
+    }
+    
+    .logo-section {
+        justify-content: center;
+    }
+    
+    .name {
+        text-align: center;
+        font-size: 40px;
+    }
+    
+    .navigation-links {
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .nav-link {
+        font-size: 24px;
+    }
+    
+    .intro-box, .academic-box, .professional-box, .projects-box {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        min-height: 200px;
+    }
+    
+    .section-title {
+        position: relative;
+        text-align: center;
+        margin: 15px 0;
+        font-size: 36px;
+    }
+    
+    .carousel-container {
+        padding-top: 80px;
+        min-height: 250px;
+    }
+    
+    .footer-nav {
+        height: auto;
+        padding: 15px 0;
+        text-align: center;
+        font-size: 22px;
     }
 }
 
-@media (max-width: 1728px) and (max-height: 1117px) {
-    #viewport {
-        transform: scale(min(calc(100vw / 1728), calc(100vh / 1117)));
-        width: 1728px;
-        height: 1117px;
+@media (max-width: 480px) {
+    .name {
+        font-size: 32px;
+    }
+    
+    .nav-link {
+        font-size: 20px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+    }
+    
+    .intro-text {
+        font-size: 20px;
     }
 }
