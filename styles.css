@@ -1,223 +1,123 @@
-/* Reset and core variables */
-:root {
-  --primary-bg: #FFFFFF;
-  --section-bg: #EEEEEE;
-  --black: #000000;
-  --highlight: #FF2F2F;
-  --circle-color: #B3B3B3;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  width: 100%;
-  height: 100%;
-  font-family: 'EB Garamond', serif;
-  overflow: hidden;
-  background-color: var(--primary-bg);
-}
-
-/* Fixed-position layout container */
-.layout-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-/* Fixed-size content area with absolute positioning */
-.content-wrapper {
-  position: absolute;
-  width: 1660px;
-  height: 850px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* Absolutely positioned elements with exact coordinates */
-.logo-section {
-  position: absolute;
-  top: 60px;
-  left: 110px;
-  display: flex;
-  gap: 10px;
-}
-
-.profile-image, .logo-image {
-  background-color: #DDDDDD;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-image {
-  width: 76px;
-  height: 96px;
-}
-
-.logo-image {
-  width: 94px;
-  height: 96px;
-}
-
-.name {
-  position: absolute;
-  top: 80px;
-  left: 350px;
-  font-size: 55px;
-  font-weight: 700;
-}
-
-.navigation-links {
-  position: absolute;
-  top: 100px;
-  right: 110px;
-  display: flex;
-  gap: 30px;
-}
-
-.nav-link {
-  font-size: 30px;
-  font-weight: 700;
-  text-decoration: none;
-  color: var(--black);
-}
-
-/* Section boxes with strict positioning to prevent overlap */
-.section-box {
-  position: absolute;
-  background-color: var(--section-bg);
-}
-
-.intro-box {
-  top: 180px;
-  left: 110px;
-  width: 202px;
-  height: 214px;
-  border-radius: 30px 30px 30px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-.intro-text {
-  font-size: 24px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.highlight {
-  color: var(--highlight);
-}
-
-.academic-box {
-  top: 180px;
-  left: 350px;
-  width: 356px;
-  height: 214px;
-}
-
-.professional-box {
-  top: 430px;
-  left: 110px;
-  width: 589px;
-  height: 295px;
-}
-
-.projects-box {
-  top: 180px;
-  left: 750px;
-  width: 800px;
-  height: 535px;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), var(--section-bg);
-}
-
-.section-title {
-  position: absolute;
-  font-size: 45px;
-  font-weight: 400;
-}
-
-.academic-box .section-title {
-  top: 15px;
-  right: 15px;
-}
-
-.professional-box .section-title {
-  top: 15px;
-  left: 15px;
-}
-
-.projects-box .section-title {
-  top: 15px;
-  right: 15px;
-}
-
-.slide-indicator {
-  position: absolute;
-  color: #999;
-  font-size: 14px;
-}
-
-.academic-box .slide-indicator {
-  top: 70px;
-  left: 20px;
-}
-
-.professional-box .slide-indicator {
-  bottom: 70px;
-  left: 20px;
-}
-
-.projects-box .slide-indicator {
-  top: 200px;
-  right: 20px;
-}
-
-/* Circle indicators */
-.circle-container {
-  position: absolute;
-  bottom: 25px;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.circle {
-  width: 27px;
-  height: 26px;
-  border-radius: 50%;
-  background-color: var(--circle-color);
-  border: none;
-}
-
-/* Footer bar */
-.footer-nav {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 50px;
-  background-color: #333;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding-left: 110px;
-  font-size: 30px;
-  font-weight: 700;
-}
-
-/* Responsive scaling - keeps proportions identical */
-@media (max-width: 1660px) {
-  .content-wrapper {
-    transform: translate(-50%, -50%) scale(calc(min(100vw / 1660, 100vh / 850)));
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prashanto Roy | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <!-- Main content area -->
+        <div class="content-wrapper">
+            <!-- Logo and profile section -->
+            <div class="logo-section">
+                <a href="#about" class="profile-link">
+                    <div class="profile-image">76 × 96</div>
+                </a>
+                <a href="#home" class="logo-link">
+                    <div class="logo-image">94 × 96</div>
+                </a>
+            </div>
+            
+            <!-- Name header -->
+            <div class="name">PRASHANTO ROY</div>
+            
+            <!-- Navigation links -->
+            <div class="navigation-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#works" class="nav-link">Works</a>
+                <a href="#connect" class="nav-link">Connect</a>
+            </div>
+            
+            <!-- Introduction Box -->
+            <div class="intro-box section-box" id="intro">
+                <div class="intro-text">
+                    <span>Kindly allow me </span>
+                    <span class="highlight">introduce</span>
+                    <span> myself.</span>
+                </div>
+            </div>
+            
+            <!-- Academic Box -->
+            <div class="academic-box section-box" id="academic">
+                <div class="section-title">Academic</div>
+                <div class="slide-indicator">Slide 1</div>
+                <div class="carousel-container">
+                    <div class="carousel-slides">
+                        <!-- Placeholder for carousel slides -->
+                        <div class="carousel-slide active">Slide 1</div>
+                        <div class="carousel-slide">Slide 2</div>
+                        <div class="carousel-slide">Slide 3</div>
+                    </div>
+                    <div class="circle-container">
+                        <button class="circle active" data-slide="0"></button>
+                        <button class="circle" data-slide="1"></button>
+                        <button class="circle" data-slide="2"></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Professional Box -->
+            <div class="professional-box section-box" id="professional">
+                <div class="section-title">Professional</div>
+                <div class="slide-indicator">Slide 6</div>
+                <div class="carousel-container">
+                    <div class="carousel-slides">
+                        <!-- Placeholder for carousel slides -->
+                        <div class="carousel-slide">Slide 1</div>
+                        <div class="carousel-slide">Slide 2</div>
+                        <div class="carousel-slide">Slide 3</div>
+                        <div class="carousel-slide">Slide 4</div>
+                        <div class="carousel-slide">Slide 5</div>
+                        <div class="carousel-slide active">Slide 6</div>
+                    </div>
+                    <div class="circle-container">
+                        <button class="circle" data-slide="0"></button>
+                        <button class="circle" data-slide="1"></button>
+                        <button class="circle" data-slide="2"></button>
+                        <button class="circle" data-slide="3"></button>
+                        <button class="circle" data-slide="4"></button>
+                        <button class="circle active" data-slide="5"></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projects Box -->
+            <div class="projects-box section-box" id="projects">
+                <div class="section-title">Projects</div>
+                <div class="slide-indicator">Slide 4</div>
+                <div class="carousel-container">
+                    <div class="carousel-slides">
+                        <!-- Placeholder for carousel slides -->
+                        <div class="carousel-slide">Slide 1</div>
+                        <div class="carousel-slide">Slide 2</div>
+                        <div class="carousel-slide">Slide 3</div>
+                        <div class="carousel-slide active">Slide 4</div>
+                        <div class="carousel-slide">Slide 5</div>
+                        <div class="carousel-slide">Slide 6</div>
+                    </div>
+                    <div class="circle-container">
+                        <button class="circle" data-slide="0"></button>
+                        <button class="circle" data-slide="1"></button>
+                        <button class="circle" data-slide="2"></button>
+                        <button class="circle active" data-slide="3"></button>
+                        <button class="circle" data-slide="4"></button>
+                        <button class="circle" data-slide="5"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer nav bar -->
+        <div class="footer-nav">
+            <span>Towards footer nav bar</span>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
