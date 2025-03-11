@@ -1,6 +1,6 @@
 /**
  * Prashanto Roy Portfolio - Carousel Implementation
- * Handles carousel functionality, circle indicators, and responsive scaling
+ * Handles carousel functionality and circle indicators
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-link');
     const profileImage = document.querySelector('.profile-image');
     const logoImage = document.querySelector('.logo-image');
-    const scrollIndicator = document.querySelector('.scroll-indicator');
     
     /**
      * Set up circle indicator interactions
@@ -38,12 +37,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const container = this.closest('.carousel-container');
                 const slides = container.querySelectorAll('.carousel-slide');
                 const circles = container.querySelectorAll('.circle');
-                const slideIndex = this.dataset.slide;
+                const slideIndex = parseInt(this.dataset.slide);
+                const slideIndicator = this.closest('.section-box').querySelector('.slide-indicator');
                 
                 // Update active slide
                 slides.forEach(slide => slide.classList.remove('active'));
                 if (slides[slideIndex]) {
                     slides[slideIndex].classList.add('active');
+                    // Update slide indicator text
+                    if (slideIndicator) {
+                        slideIndicator.textContent = `Slide ${slideIndex + 1}`;
+                    }
                 }
                 
                 // Update active circle
@@ -52,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     c.style.transform = 'scale(1)';
                     c.style.boxShadow = 'none';
                 });
+                
                 this.classList.add('active');
                 this.style.transform = 'scale(1.2)';
                 this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.15)';
@@ -69,16 +74,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Only trigger if the click wasn't directly on a circle
                 if (!e.target.classList.contains('circle')) {
                     const sectionId = this.id;
-                    navigateToSection(sectionId);
+                    console.log(`Navigating to section: ${sectionId}`);
+                    
+                    // Create page transition effect
+                    const transition = document.createElement('div');
+                    transition.style.position = 'fixed';
+                    transition.style.top = '0';
+                    transition.style.left = '0';
+                    transition.style.width = '100%';
+                    transition.style.height = '100%';
+                    transition.style.backgroundColor = 'white';
+                    transition.style.zIndex = '1000';
+                    transition.style.opacity = '0';
+                    transition.style.transition = 'opacity 0.5s ease';
+                    
+                    document.body.appendChild(transition);
+                    
+                    // Trigger animation
+                    requestAnimationFrame(() => {
+                        transition.style.opacity = '1';
+                        
+                        // After transition completes, navigate to section
+                        setTimeout(() => {
+                            // For demo, just remove the transition
+                            transition.style.opacity = '0';
+                            setTimeout(() => transition.remove(), 500);
+                        }, 500);
+                    });
                 }
             });
             
-            // Ensure boxes are keyboard navigable
+            // Ensure keyboard navigation works
             box.setAttribute('tabindex', '0');
             box.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     const sectionId = this.id;
-                    navigateToSection(sectionId);
+                    console.log(`Keyboard navigation to: ${sectionId}`);
                 }
             });
         });
@@ -92,7 +123,33 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
-                navigateToSection(targetId);
+                console.log(`Navigation link clicked: ${targetId}`);
+                
+                // Add page transition effect
+                const transition = document.createElement('div');
+                transition.style.position = 'fixed';
+                transition.style.top = '0';
+                transition.style.left = '0';
+                transition.style.width = '100%';
+                transition.style.height = '100%';
+                transition.style.backgroundColor = 'white';
+                transition.style.zIndex = '1000';
+                transition.style.opacity = '0';
+                transition.style.transition = 'opacity 0.5s ease';
+                
+                document.body.appendChild(transition);
+                
+                // Trigger animation
+                requestAnimationFrame(() => {
+                    transition.style.opacity = '1';
+                    
+                    // After transition completes, navigate
+                    setTimeout(() => {
+                        // For demo, just remove the transition
+                        transition.style.opacity = '0';
+                        setTimeout(() => transition.remove(), 500);
+                    }, 500);
+                });
             });
         });
     }
@@ -103,126 +160,37 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupImageInteractions() {
         if (profileImage) {
             profileImage.addEventListener('click', function() {
-                navigateToSection('about');
+                console.log('Profile image clicked: navigating to About');
             });
         }
         
         if (logoImage) {
             logoImage.addEventListener('click', function() {
-                navigateToSection('home');
+                console.log('Logo image clicked: navigating to Home');
             });
         }
     }
     
     /**
-     * Set up carousel functionality
-     * Initialize carousels with the middle slide active
+     * Handle window resize to maintain proportions
      */
-    function setupCarousels() {
-        const carousels = document.querySelectorAll('.carousel-container');
-        
-        carousels.forEach(carousel => {
-            const slides = carousel.querySelectorAll('.carousel-slide');
-            const circles = carousel.querySelectorAll('.circle');
+    function handleResize() {
+        // Adjust the layout if needed based on window size
+        const adjustLayout = () => {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
             
-            // Find the middle circle/slide
-            const middleIndex = Math.floor(circles.length / 2);
-            
-            // Set initial active slide and circle
-            slides.forEach(slide => slide.classList.remove('active'));
-            if (slides[middleIndex]) {
-                slides[middleIndex].classList.add('active');
-            }
-            
-            circles.forEach(circle => {
-                circle.classList.remove('active');
-                circle.style.transform = 'scale(1)';
-                circle.style.boxShadow = 'none';
-            });
-            
-            if (circles[middleIndex]) {
-                circles[middleIndex].classList.add('active');
-                circles[middleIndex].style.transform = 'scale(1.2)';
-                circles[middleIndex].style.boxShadow = '0 5px 15px rgba(0,0,0,0.15)';
-            }
-        });
-    }
-    
-    /**
-     * Handle scroll indicator interaction
-     */
-    function setupScrollIndicator() {
-        if (scrollIndicator) {
-            scrollIndicator.addEventListener('click', function() {
-                // Smooth scroll to footer
-                const footer = document.querySelector('.footer-nav');
-                if (footer) {
-                    footer.scrollIntoView({behavior: 'smooth'});
-                }
-            });
-        }
-    }
-    
-    /**
-     * Handle navigation to different sections
-     * @param {string} sectionId - ID of the section to navigate to
-     */
-    function navigateToSection(sectionId) {
-        console.log(`Navigating to: ${sectionId}`);
-        
-        // Create transition effect
-        const transition = document.createElement('div');
-        transition.style.position = 'fixed';
-        transition.style.top = '0';
-        transition.style.left = '0';
-        transition.style.width = '100%';
-        transition.style.height = '100%';
-        transition.style.backgroundColor = 'white';
-        transition.style.zIndex = '1000';
-        transition.style.opacity = '0';
-        transition.style.transition = 'opacity 0.5s ease';
-        
-        document.body.appendChild(transition);
-        
-        // Trigger animation
-        requestAnimationFrame(() => {
-            transition.style.opacity = '1';
-            
-            // In a real implementation, you would navigate to the target page
-            // For demo purposes, we'll just fade in and out
-            setTimeout(() => {
-                transition.style.opacity = '0';
-                setTimeout(() => {
-                    transition.remove();
-                }, 500);
-            }, 500);
-        });
-    }
-    
-    /**
-     * Handle responsive behavior on mobile devices
-     */
-    function setupMobileResponsiveness() {
-        function checkMobile() {
-            if (window.innerWidth <= 768) {
-                // On mobile, make the layout scrollable
+            // If mobile view, make content scrollable
+            if (windowWidth < 992) {
                 document.body.style.overflow = 'auto';
-                
-                // Adjust carousel containers for touch
-                document.querySelectorAll('.carousel-container').forEach(container => {
-                    container.style.minHeight = '250px';
-                });
             } else {
-                // On desktop, use the original layout
                 document.body.style.overflow = 'hidden';
             }
-        }
+        };
         
-        // Check on load
-        checkMobile();
-        
-        // Check on resize
-        window.addEventListener('resize', checkMobile);
+        // Call on load and on resize
+        adjustLayout();
+        window.addEventListener('resize', adjustLayout);
     }
     
     // Initialize all functionality
@@ -230,7 +198,5 @@ document.addEventListener('DOMContentLoaded', function() {
     setupSectionBoxInteractions();
     setupNavLinkInteractions();
     setupImageInteractions();
-    setupCarousels();
-    setupScrollIndicator();
-    setupMobileResponsiveness();
+    handleResize();
 });
