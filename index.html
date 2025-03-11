@@ -10,68 +10,91 @@
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Top navigation bar -->
-    <div class="nav-bar"></div>
-    
-    <!-- Main content container -->
-    <div class="container">
-        <!-- Logo and profile section -->
-        <div class="logo-section">
-            <img src="https://placehold.co/74x93" alt="Profile Photo" class="profile-img">
-            <img src="https://placehold.co/91x93" alt="Logo" class="logo-img">
+    <div class="browser-header">
+        <div class="tab-bar">
+            <div class="tab">
+                <span>New Tab</span>
+                <button class="close-tab">×</button>
+            </div>
+            <button class="new-tab">+</button>
         </div>
-        
-        <!-- Name header -->
-        <h1 class="name">PRASHANTO ROY</h1>
-        
-        <!-- Main navigation links -->
-        <nav class="main-nav">
-            <a href="#about" class="nav-link">About</a>
-            <a href="#works" class="nav-link">Works</a>
-            <a href="#connect" class="nav-link">Connect</a>
-        </nav>
-        
-        <!-- Introduction section -->
-        <div class="intro-box button-section" id="intro">
-            <p>Kindly allow me <span class="highlight">introduce</span> myself.</p>
-        </div>
-        
-        <!-- Academic section -->
-        <div class="academic-box button-section" id="academic">
-            <h2>Academic</h2>
-            <div class="circle-nav">
-                <button class="circle small"></button>
-                <button class="circle medium"></button>
-                <button class="circle small"></button>
+        <div class="address-bar">
+            <div class="navigation">
+                <button class="nav-button back">◀</button>
+                <button class="nav-button forward">▶</button>
+                <button class="nav-button reload">↻</button>
+            </div>
+            <div class="url-bar">
+                <span>prashantoroy.com</span>
+            </div>
+            <div class="browser-actions">
+                <button class="action-button">⋮</button>
             </div>
         </div>
-        
-        <!-- Professional section -->
-        <div class="professional-box button-section" id="professional">
-            <h2>Professional</h2>
-            <div class="circle-nav">
-                <button class="circle small-light"></button>
-                <button class="circle small"></button>
-                <button class="circle medium"></button>
-                <button class="circle small"></button>
-                <button class="circle small-light"></button>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="content">
+            <!-- Logo and Profile Image -->
+            <div class="logo-container">
+                <div class="profile-image"></div>
+                <div class="logo-image"></div>
             </div>
-        </div>
-        
-        <!-- Projects section -->
-        <div class="projects-box button-section" id="projects">
-            <h2>Projects</h2>
-            <div class="circle-nav">
-                <button class="circle small-light"></button>
-                <button class="circle medium-light"></button>
-                <button class="circle large"></button>
-                <button class="circle medium-light"></button>
-                <button class="circle small-light"></button>
+            
+            <!-- Name Header -->
+            <div class="name">PRASHANTO ROY</div>
+            
+            <!-- Navigation Links -->
+            <div class="navigation-links">
+                <a href="#" class="nav-link about">About</a>
+                <a href="#" class="nav-link works">Works</a>
+                <a href="#" class="nav-link connect">Connect</a>
             </div>
+            
+            <!-- Introduction Box -->
+            <div class="intro-box">
+                <div class="intro-text">
+                    Kindly allow me <span class="highlight">introduce</span> myself.
+                </div>
+            </div>
+            
+            <!-- Academic Box -->
+            <div class="academic-box">
+                <div class="section-title academic-title">Academic</div>
+                <div class="circle-container academic-circles">
+                    <div class="circle small"></div>
+                    <div class="circle medium"></div>
+                    <div class="circle small"></div>
+                </div>
+            </div>
+            
+            <!-- Professional Box -->
+            <div class="professional-box">
+                <div class="section-title professional-title">Professional</div>
+                <div class="circle-container professional-circles">
+                    <div class="circle smallest"></div>
+                    <div class="circle small"></div>
+                    <div class="circle medium"></div>
+                    <div class="circle small"></div>
+                    <div class="circle smallest"></div>
+                </div>
+            </div>
+            
+            <!-- Projects Box -->
+            <div class="projects-box">
+                <div class="section-title projects-title">Projects</div>
+                <div class="circle-container projects-circles">
+                    <div class="circle smallest"></div>
+                    <div class="circle small"></div>
+                    <div class="circle large"></div>
+                    <div class="circle small"></div>
+                    <div class="circle smallest"></div>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator"></div>
         </div>
-        
-        <!-- Footer indicator -->
-        <div class="scroll-indicator"></div>
     </div>
     
     <script src="script.js"></script>
