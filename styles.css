@@ -1,395 +1,223 @@
-/* CSS Variables for consistent styling */
+/* Reset and core variables */
 :root {
-    --primary-bg: #FFFFFF;
-    --section-bg: #EEEEEE;
-    --black: #000000;
-    --highlight: #FF2F2F;
-    --circle-color: #B3B3B3;
-    --transition: all 0.3s ease;
+  --primary-bg: #FFFFFF;
+  --section-bg: #EEEEEE;
+  --black: #000000;
+  --highlight: #FF2F2F;
+  --circle-color: #B3B3B3;
 }
 
-/* Base reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html, body {
-    width: 100%;
-    height: 100%;
-    font-family: 'EB Garamond', serif;
-    font-size: 16px;
-    background-color: var(--primary-bg);
-    overflow: hidden;
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'EB Garamond', serif;
+  overflow: hidden;
+  background-color: var(--primary-bg);
 }
 
-/* Layout wrapper - full viewport width */
+/* Fixed-position layout container */
 .layout-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
-/* Main content wrapper */
+/* Fixed-size content area with absolute positioning */
 .content-wrapper {
-    position: relative;
-    width: 1660px; /* Fixed width */
-    height: 850px; /* Fixed height */
-    margin: 0 auto;
+  position: absolute;
+  width: 1660px;
+  height: 850px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-/* Logo and profile section */
+/* Absolutely positioned elements with exact coordinates */
 .logo-section {
-    position: absolute;
-    top: 60px;
-    left: 2%;
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  position: absolute;
+  top: 60px;
+  left: 110px;
+  display: flex;
+  gap: 10px;
 }
 
 .profile-image, .logo-image {
-    background-color: #DDDDDD;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    color: #666;
-    cursor: pointer;
-    transition: var(--transition);
+  background-color: #DDDDDD;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-image {
-    width: 76px;
-    height: 96px;
+  width: 76px;
+  height: 96px;
 }
 
 .logo-image {
-    width: 94px;
-    height: 96px;
+  width: 94px;
+  height: 96px;
 }
 
-.profile-image:hover, .logo-image:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* Name styling */
 .name {
-    position: absolute;
-    top: 80px;
-    left: 18%;
-    font-size: 55px;
-    font-weight: 700;
-    color: var(--black);
+  position: absolute;
+  top: 80px;
+  left: 350px;
+  font-size: 55px;
+  font-weight: 700;
 }
 
-/* Navigation links */
 .navigation-links {
-    position: absolute;
-    top: 100px;
-    right: 5%;
-    display: flex;
-    gap: 30px;
+  position: absolute;
+  top: 100px;
+  right: 110px;
+  display: flex;
+  gap: 30px;
 }
 
 .nav-link {
-    font-size: 30px;
-    font-weight: 700;
-    color: var(--black);
-    text-decoration: none;
-    position: relative;
+  font-size: 30px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--black);
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--black);
-    transition: var(--transition);
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-/* Common section box styling */
+/* Section boxes with strict positioning to prevent overlap */
 .section-box {
-    background-color: var(--section-bg);
-    position: absolute;
-    transition: var(--transition);
-    cursor: pointer;
+  position: absolute;
+  background-color: var(--section-bg);
 }
 
-.section-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* Section titles */
-.section-title {
-    font-size: 45px;
-    font-weight: 400;
-    color: var(--black);
-    position: absolute;
-}
-
-/* Slide indicator */
-.slide-indicator {
-    position: absolute;
-    color: #999;
-    font-size: 14px;
-    font-style: italic;
-}
-
-/* Intro box specific styling */
 .intro-box {
-    position: absolute;
-    top: 180px;
-    left: 110px;
-    width: 202px;
-    height: 214px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    text-align: center;
-    border-radius: 30px 30px 30px 0; /* Three rounded corners, one pointy */
-    background-color: var(--section-bg);
+  top: 180px;
+  left: 110px;
+  width: 202px;
+  height: 214px;
+  border-radius: 30px 30px 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .intro-text {
-    font-size: 24px;
-    font-weight: 700;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
 }
 
 .highlight {
-    color: var(--highlight);
+  color: var(--highlight);
 }
 
-/* Academic box specific styling */
 .academic-box {
-    position: absolute;
-    top: 180px;
-    left: 350px; /* Increased spacing from intro box */
-    width: 356px;
-    height: 214px;
-    background-color: var(--section-bg);
+  top: 180px;
+  left: 350px;
+  width: 356px;
+  height: 214px;
+}
+
+.professional-box {
+  top: 430px;
+  left: 110px;
+  width: 589px;
+  height: 295px;
+}
+
+.projects-box {
+  top: 180px;
+  left: 750px;
+  width: 800px;
+  height: 535px;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), var(--section-bg);
+}
+
+.section-title {
+  position: absolute;
+  font-size: 45px;
+  font-weight: 400;
 }
 
 .academic-box .section-title {
-    top: 16px;
-    right: 15px;
-}
-
-.academic-box .slide-indicator {
-    top: 70px;
-    left: 20px;
-}
-
-/* Professional box specific styling */
-.professional-box {
-    top: 420px;
-    left: 2%;
-    width: 589px;
-    height: 295px;
+  top: 15px;
+  right: 15px;
 }
 
 .professional-box .section-title {
-    top: 13px;
-    left: 19px;
-}
-
-.professional-box .slide-indicator {
-    bottom: 70px;
-    left: 20px;
-}
-
-/* Professional box specific styling */
-.professional-box {
-    position: absolute;
-    top: 430px;
-    left: 110px;
-    width: 589px;
-    height: 295px;
-    background-color: var(--section-bg);
+  top: 15px;
+  left: 15px;
 }
 
 .projects-box .section-title {
-    top: 16px;
-    right: 15px;
+  top: 15px;
+  right: 15px;
+}
+
+.slide-indicator {
+  position: absolute;
+  color: #999;
+  font-size: 14px;
+}
+
+.academic-box .slide-indicator {
+  top: 70px;
+  left: 20px;
+}
+
+.professional-box .slide-indicator {
+  bottom: 70px;
+  left: 20px;
 }
 
 .projects-box .slide-indicator {
-    top: 200px;
-    right: 20px;
+  top: 200px;
+  right: 20px;
 }
 
-/* Projects box specific styling */
-.projects-box {
-    position: absolute;
-    top: 180px;
-    left: 750px; /* Increased spacing from academic box */
-    width: 800px; /* Fixed width */
-    height: 535px;
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), var(--section-bg);
-}
-
-/* Carousel container */
-.carousel-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    padding-top: 70px;
-    padding-bottom: 50px;
-}
-
-.carousel-slides {
-    width: 100%;
-    height: calc(100% - 70px);
-    position: relative;
-}
-
-.carousel-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #999;
-    font-size: 18px;
-}
-
-.carousel-slide.active {
-    opacity: 1;
-}
-
-/* Circle indicator styling */
+/* Circle indicators */
 .circle-container {
-    position: absolute;
-    bottom: 25px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
 .circle {
-    width: 27px;
-    height: 26px;
-    border-radius: 50%;
-    background-color: var(--circle-color);
-    border: none;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 27px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: var(--circle-color);
+  border: none;
 }
 
-.circle:hover, .circle.active {
-    transform: scale(1.2);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-}
-
-/* Footer nav bar */
+/* Footer bar */
 .footer-nav {
-    width: 100%;
-    height: 50px;
-    background-color: #333;
-    color: white;
-    display: flex;
-    align-items: center;
-    padding-left: 2%;
-    font-size: 30px;
-    font-weight: 700;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #333;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 110px;
+  font-size: 30px;
+  font-weight: 700;
 }
 
-/* Responsive styles */
-@media (max-width: 1400px) {
-    .name {
-        font-size: 45px;
-    }
-    
-    .nav-link {
-        font-size: 24px;
-    }
-    
-    .section-title {
-        font-size: 36px;
-    }
-}
-
-@media (max-width: 992px) {
-    .content-wrapper {
-        overflow-y: auto;
-        padding: 20px;
-    }
-    
-    .logo-section, .name, .navigation-links, 
-    .intro-box, .academic-box, .professional-box, .projects-box {
-        position: relative;
-        top: auto;
-        left: auto;
-        right: auto;
-        width: 100%;
-        max-width: 600px;
-        margin: 20px auto;
-    }
-    
-    .logo-section {
-        justify-content: flex-start;
-        margin-left: 2%;
-    }
-    
-    .name {
-        font-size: 40px;
-        margin-left: 2%;
-    }
-    
-    .navigation-links {
-        justify-content: flex-end;
-        margin-right: 2%;
-    }
-    
-    .intro-box, .academic-box, .professional-box, .projects-box {
-        height: auto;
-        min-height: 200px;
-    }
-    
-    .section-title {
-        position: relative;
-        top: 15px;
-        left: 15px;
-        font-size: 32px;
-    }
-    
-    .carousel-container {
-        padding-top: 100px;
-        min-height: 200px;
-    }
-
-    @media (max-width: 1660px) {
-    body {
-        overflow: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
-    
-    .content-wrapper {
-        transform: scale(calc(100vw / 1660));
-        transform-origin: center top;
-    }
+/* Responsive scaling - keeps proportions identical */
+@media (max-width: 1660px) {
+  .content-wrapper {
+    transform: translate(-50%, -50%) scale(calc(min(100vw / 1660, 100vh / 850)));
+  }
 }
